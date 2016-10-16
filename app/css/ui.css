@@ -1,0 +1,39 @@
+/* CODEMIRROR */
+
+.CodeMirror {
+  height: calc(100vh);
+}
+
+
+/* BOTTOM BAR */
+
+.bottom-wrapper {
+  border-top: 1px solid lightgray;
+  background: lightblue;
+  position: fixed;
+  z-index: 1000;
+  bottom: 0px;
+  height: 40px;
+  width: 100%;
+  left: 0px;
+}
+
+.filter-input {
+  font-family: monaco;
+  font-size: 20px;
+  position: relative;
+  height: 35px;
+  width: 100%;
+  left: 46px;
+}
+
+.filter-input:focus {
+  outline-width: 0;
+}
+
+.filter-icon {
+  position: absolute;
+  height: 20px;
+  left: 14px;
+  top: 10px;
+}
