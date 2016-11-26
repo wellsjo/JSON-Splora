@@ -1,6 +1,6 @@
 # JSON-Splora
 
-**JSON-Splora** is a desktop application for editing, visualizing, and manipulating JSON data.
+**JSON-Splora** is a GUI for editing, visualizing, and manipulating JSON data.
 
 ![Demo](https://github.com/wellsjo/json-splora/blob/master/app/assets/demo.gif)
 
