@@ -19,15 +19,22 @@ Once the editor has valid JSON, an input window will appear below, allowing you 
 #### Output
 A panel will appear to the right with the output, and updates live as the input or filter changes.
 
+## Install
+To install and test locally, run:
+```
+npm install
+npm start
+```
+
 ## Build
-Build for `darwin`, `linux`, `win32` or all three platforms with one of the following commands:
+Build the application for `darwin`, `linux`, `win32` or all three platforms with one of the following commands:
 ```
 npm run-script build-darwin
 npm run-script build-linux
 npm run-script build-win32
 npm run-script build
 ```
-This will create a local directory `JSON-Splora-<system>`, which will contain the built application.
+This will create a local directory `JSON-Splora-<system>`, which contains the application.
 
 ## License
 [MIT](https://github.com/wellsjo/json-splora/blob/master/LICENSE)
