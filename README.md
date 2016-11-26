@@ -20,10 +20,11 @@ Once the editor has valid JSON, an input window will appear below, allowing you 
 A panel will appear to the right with the output, and updates live as the input or filter changes.
 
 ## Build
-Build for `darwin`, `linux` or both platforms with one of the following commands:
+Build for `darwin`, `linux`, `win32` or all three platforms with one of the following commands:
 ```
 npm run-script build-darwin
 npm run-script build-linux
+npm run-script build-win32
 npm run-script build
 ```
 This will create a local directory `JSON-Splora-<system>`, which will contain the built application.
