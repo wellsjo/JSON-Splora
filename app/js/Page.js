@@ -60,6 +60,7 @@ class Page {
       handles: 'e, w'
     })
 
+    // Respond to valid input and key events
     this.handleEditorEvents()
   }
 

@@ -10,7 +10,6 @@
 
 const welcomeMessage = require('./welcome-message')
 const EventEmitter = require('events').EventEmitter
-const formatJSON = require('js-beautify').js_beautify
 const json5 = require('json5')
 const jq = require('node-jq')
 const vm = require('vm')
@@ -129,14 +128,6 @@ class Editor extends EventEmitter {
       }
     }
   }
-}
-
-/**
- * Return date as unix timestamp
- */
-
-function now() {
-  return new Date().getTime() / 1000
 }
 
 /**
