@@ -78,6 +78,7 @@ class Editor {
     // Pass the jq filter on to the parse function
     $('.filter-input').on('keyup', e => {
       let filter = $(e.target).val()
+      this.updateQueryType()
       this.runFilter(filter)
     })
   }
@@ -122,6 +123,7 @@ class Editor {
       this.hideRightPanel()
       return
     }
+
     let sandbox = {
       x: this.data,
       result: null
@@ -132,6 +134,7 @@ class Editor {
     try {
       new vm.Script(code).runInNewContext(sandbox)
       this.showOutput(sandbox.result)
+      this.updateQueryType('js')
     } catch (e) {
       try {
 
@@ -141,6 +144,7 @@ class Editor {
           output: 'json'
         }).then(result => {
           this.showOutput(result)
+          this.updateQueryType('jq')
         }).catch(e => {
           console.log(e.stack || e)
           this.hideRightPanel()
@@ -161,6 +165,15 @@ class Editor {
     this.output.setValue(output)
     this.showRightPanel()
     console.log('showing output', value)
+  }
+
+  /**
+   * Updates the query type image beside the query input.
+   */
+  updateQueryType(queryType) {
+    queryType = queryType || 'question'
+    this.queryType = queryType
+    $('.filter-icon').attr('src', `app/assets/${queryType}.svg`)
   }
 
   /**

@@ -9,7 +9,7 @@
 
 .bottom-wrapper {
   border-top: 1px solid lightgray;
-  background: lightblue;
+  background: #f7f7f7;
   position: fixed;
   z-index: 1000;
   bottom: 0px;
@@ -19,7 +19,9 @@
 }
 
 .filter-input {
+  border-left: 1px solid lightgray;
   font-family: monaco;
+  border-top: none;
   font-size: 20px;
   position: relative;
   height: 35px;
@@ -33,7 +35,7 @@
 
 .filter-icon {
   position: absolute;
-  height: 20px;
-  left: 14px;
-  top: 10px;
+  height: 30px;
+  left: 8px;
+  top: 5px;
 }
