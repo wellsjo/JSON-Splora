@@ -8,22 +8,11 @@
  * Dependencies
  */
 
+const welcomeMessage = require('./welcome-message')
 const formatJSON = require('js-beautify').js_beautify
 const json5 = require('json5')
 const jq = require('node-jq')
 const vm = require('vm')
-
-let welcomeMessage =
-  `/**
- * Welcome to JSON-Splora!
- *
- * Drag-and-drop a file, or input raw JSON or JS
- *
- * When valid JSON is detected, a window will open
- * below where you can run js and jq filters
- */
-
-`
 
 /**
  * Wrapper class for json editor
