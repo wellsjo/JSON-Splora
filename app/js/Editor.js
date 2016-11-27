@@ -122,6 +122,10 @@ class Editor {
       this.hideRightPanel()
       return
     }
+
+    if (filter.indexOf('.') === -1)
+      filter = '.' + filter;
+
     let sandbox = {
       x: this.data,
       result: null
