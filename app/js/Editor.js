@@ -21,13 +21,9 @@ const vm = require('vm')
 
 class Editor extends EventEmitter {
 
-  constructor(inputEditor, filterInput, outputEditor) {
+  constructor(inputEditor) {
     super()
-
-    // Inputs
-    this.outputEditor = outputEditor
     this.inputEditor = inputEditor
-    this.filterInput = filterInput
 
     // Welcome message
     this.inputEditor.setValue(welcomeMessage)
@@ -56,17 +52,8 @@ class Editor extends EventEmitter {
     this.inputEditor.on('inputRead', (cm, e) => {
       if ('paste' == e.origin) {
         this.validate(e.text)
-        if (this.data !== null) {
-          this.formatInput()
-        }
+        this.formatInput()
       }
-    })
-
-    // Pass the jq filter on to the parse function
-    this.filterInput.on('keyup', e => {
-      let filter = $(e.target).val()
-      this.filter = filter
-      this.runFilter()
     })
   }
 
@@ -92,8 +79,10 @@ class Editor extends EventEmitter {
    */
 
   formatInput() {
-    let json = JSON.stringify(this.data, null, 2)
-    this.inputEditor.setValue(json)
+    if (null !== this.data) {
+      let json = JSON.stringify(this.data, null, 2)
+      this.inputEditor.setValue(json)
+    }
   }
 
   /**
@@ -102,16 +91,16 @@ class Editor extends EventEmitter {
    * @param {String} filter
    */
 
-  runFilter() {
+  runFilter(filter) {
 
     // Ignore empty filters
-    if (!this.filter.length) {
-      this.hideRightPanel()
+    if (!filter.length) {
+      this.emit('filter-invalid')
       return
     }
 
     // This will run 'result=<obj><filter>', and set it on the sandbox object
-    let code = `result = x${this.filter}`
+    let code = `result = x${filter}`
     let sandbox = {
       x: this.data,
       result: null
@@ -120,49 +109,25 @@ class Editor extends EventEmitter {
     // Try to run through JavaScript vm first
     try {
       new vm.Script(code).runInNewContext(sandbox)
-      this.showOutput(sandbox.result)
+      this.emit('filter-valid', sandbox.result)
     } catch (e) {
       try {
 
         // If JavaScript filter fails, run through jq
-        jq.run(this.filter, this.data, {
+        jq.run(filter, this.data, {
           input: 'json',
           output: 'json'
         }).then(result => {
-          this.showOutput(result)
+
+          // The filter worked
+          this.emit('filter-valid', result)
         }).catch(e => {
-          this.hideRightPanel()
+          this.emit('filter-invalid')
         });
       } catch (e) {
-        this.hideRightPanel()
+        this.emit('filter-invalid')
       }
     }
-  }
-
-  /**
-   * Show the read-only filter output
-   */
-
-  showOutput(value) {
-    let output = JSON.stringify(value, null, 2)
-    this.outputEditor.setValue(output)
-    this.showRightPanel()
-  }
-
-  /**
-   * Show the right panel
-   */
-
-  showRightPanel() {
-    $('.panel-left').css('width', '50%')
-  }
-
-  /**
-   * Show the left panel
-   */
-
-  hideRightPanel() {
-    $('.panel-left').css('width', '100%')
   }
 }
 
