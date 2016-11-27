@@ -10,6 +10,7 @@
  */
 
 const Editor = require('./Editor')
+const Output = require('./Output')
 
 /**
  * Page
@@ -18,41 +19,15 @@ const Editor = require('./Editor')
 class Page {
 
   constructor() {
-
-    // Input CodeMirror object
-    let inputEl = document.querySelector('.json-input')
-    let inputEditor = CodeMirror.fromTextArea(inputEl, {
-      gutters: ["CodeMirror-lint-markers"],
-      lineNumbers: true,
-      smartIndent: true,
-      autofocus: true,
-      extraKeys: {
-        Tab: false
-      },
-      indentUnit: 2,
-      tabSize: 2,
-      mode: {
-        name: 'javascript',
-        json: true
-      },
-      lint: true
-    })
-
-    // Output CodeMirror object (read-only)
+    let editorEl = document.querySelector('.json-input')
     let outputEl = document.querySelector('.filter-output')
-    this.outputEditor = CodeMirror.fromTextArea(outputEl, {
-      lineNumbers: true,
-      smartIndent: true,
-      readOnly: true,
-      mode: 'application/javascript',
-      lint: true
-    })
 
-    // Filter input (jQuery object)
-    this.filterInput = $('.filter-input')
+    // Create input/output editors
+    this.editor = new Editor(editorEl)
+    this.output = new Output(outputEl)
 
-    // Create editor
-    this.editor = new Editor(inputEditor)
+    // Create filter input
+    this.filter = $('.filter-input')
 
     // Enable slider pane UI
     $('.panel-left').resizable({
@@ -73,13 +48,13 @@ class Page {
     // Show the bottom bar when valid input is detected
     this.editor.on('valid-input', _ => {
       if ($('.bottom-wrapper').hasClass('hidden')) {
-        $('.bottom-wrapper').removeClass('hidden')
-        $('.filter-input').focus()
+        this.showBottomBar()
+        this.focusFilter()
       }
     })
 
-    this.editor.on('filter-valid', output => {
-      this.showOutput(output)
+    this.editor.on('filter-valid', result => {
+      this.output.show(result)
       this.showRightPanel()
     })
 
@@ -87,18 +62,26 @@ class Page {
       this.hideRightPanel()
     })
 
-    this.filterInput.on('keyup', e => {
+    this.filter.on('keyup', e => {
       let filter = $(e.target).val()
       this.editor.runFilter(filter)
     })
   }
 
   /**
-   * Show the read-only filter output
+   * Show bottom bar with filter input
    */
 
-  showOutput(output) {
-    this.outputEditor.setValue(JSON.stringify(output, null, 2))
+  showBottomBar() {
+    $('.bottom-wrapper').removeClass('hidden')
+  }
+
+  /**
+   * Focus cursor on the filter input
+   */
+
+  focusFilter() {
+    $('.filter-input').focus()
   }
 
   /**

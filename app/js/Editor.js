@@ -20,9 +20,26 @@ const vm = require('vm')
 
 class Editor extends EventEmitter {
 
-  constructor(inputEditor) {
+  constructor(el) {
     super()
-    this.inputEditor = inputEditor
+
+    // Create CodeMirror element
+    this.inputEditor = CodeMirror.fromTextArea(el, {
+      gutters: ["CodeMirror-lint-markers"],
+      lineNumbers: true,
+      smartIndent: true,
+      autofocus: true,
+      extraKeys: {
+        Tab: false
+      },
+      indentUnit: 2,
+      tabSize: 2,
+      mode: {
+        name: 'javascript',
+        json: true
+      },
+      lint: true
+    })
 
     // Welcome message
     this.inputEditor.setValue(welcomeMessage)
