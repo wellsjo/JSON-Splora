@@ -123,7 +123,7 @@ class Editor {
       return
     }
 
-    if (filter.indexOf('.') === -1)
+    if (filter.substring(0, 1) !== '.')
       filter = '.' + filter;
 
     let sandbox = {
