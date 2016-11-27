@@ -8,22 +8,11 @@
  * Dependencies
  */
 
+const welcomeMessage = require('./welcome-message')
 const formatJSON = require('js-beautify').js_beautify
 const json5 = require('json5')
 const jq = require('node-jq')
 const vm = require('vm')
-
-let welcomeMessage =
-`/**
- * Welcome to JSON-Splora!
- *
- * Drag-and-drop a file, or input raw JSON or JS
- *
- * When valid JSON is detected, a window will open
- * below where you can run js and jq filters
- */
-
-`
 
 /**
  * Wrapper class for json editor
@@ -78,7 +67,8 @@ class Editor {
     // Pass the jq filter on to the parse function
     $('.filter-input').on('keyup', e => {
       let filter = $(e.target).val()
-      this.runFilter(filter)
+      this.filter = filter
+      this.runFilter()
     })
   }
 
@@ -93,10 +83,17 @@ class Editor {
     let input = this.editor.getValue()
     try {
       this.data = json5.parse(input)
-      if (opts.format) this.formatInput()
-      this.showBottomBar()
+      if (opts.format) {
+        this.formatInput()
+      }
+      if ($('.bottom-wrapper').hasClass('hidden')) {
+        $('.bottom-wrapper').removeClass('hidden')
+        $('.filter-input').focus()
+      } else {
+        this.runFilter()
+      }
     } catch (e) {
-      this.hideBottomBar()
+      // No-op here allows for live-updating output while editing input
     }
   }
 
@@ -116,8 +113,8 @@ class Editor {
    * @param {String} filter
    */
 
-  runFilter(filter) {
-    console.log('running filter', filter)
+  runFilter() {
+    let filter = this.filter
     if (!filter.length) {
       this.hideRightPanel()
       return
@@ -135,18 +132,16 @@ class Editor {
     } catch (e) {
       try {
 
-        // try jq filter
+        // Try jq filter
         jq.run(filter, this.data, {
           input: 'json',
           output: 'json'
         }).then(result => {
           this.showOutput(result)
         }).catch(e => {
-          console.log(e.stack || e)
           this.hideRightPanel()
         });
       } catch (e) {
-        console.log(e.stack || e)
         this.hideRightPanel()
       }
     }
@@ -160,18 +155,6 @@ class Editor {
     let output = JSON.stringify(value, null, 2)
     this.output.setValue(output)
     this.showRightPanel()
-    console.log('showing output', value)
-  }
-
-  /**
-   * Shows the bottom bar
-   */
-
-  showBottomBar() {
-    if ($('.bottom-wrapper').hasClass('hidden')) {
-      $('.bottom-wrapper').removeClass('hidden')
-      $('.filter-input').focus()
-    }
   }
 
   /**
@@ -182,22 +165,26 @@ class Editor {
     $('.bottom-wrapper').addClass('hidden')
   }
 
+  /**
+   * Show the right panel
+   */
+
   showRightPanel() {
     $('.panel-left').css('width', '50%')
   }
 
+  /**
+   * Show the left panel
+   */
+
   hideRightPanel() {
     $('.panel-left').css('width', '100%')
   }
-
-  /**
-   * Write a message to the application message bar
-   */
-
-  message(message) {
-    // this.messageBox.innerHTML = message
-  }
 }
+
+/**
+ * Return date as unix timestamp
+ */
 
 function now() {
   return new Date().getTime() / 1000
