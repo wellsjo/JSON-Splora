@@ -124,9 +124,6 @@ class Editor {
       return
     }
 
-    if (filter.substring(0, 1) !== '.')
-      filter = '.' + filter;
-
     let sandbox = {
       x: this.data,
       result: null
@@ -174,8 +171,9 @@ class Editor {
    * Updates the query type image beside the query input.
    */
   updateQueryType(queryType) {
-    queryType = queryType || 'question';
-    $('#filterIcon').attr('src', `app/assets/${queryType}.svg`);
+    queryType = queryType || 'question'
+    this.queryType = queryType
+    $('.filter-icon').attr('src', `app/assets/${queryType}.svg`)
   }
 
   /**
