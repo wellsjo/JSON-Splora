@@ -9,6 +9,7 @@
  */
 
 const welcomeMessage = require('./welcome-message')
+const EventEmitter = require('events').EventEmitter
 const formatJSON = require('js-beautify').js_beautify
 const json5 = require('json5')
 const jq = require('node-jq')
@@ -18,82 +19,58 @@ const vm = require('vm')
  * Wrapper class for json editor
  */
 
-class Editor {
+class Editor extends EventEmitter {
 
-  constructor() {
-    this.messageBox = document.querySelector('.message')
-    this.lastFormatted = 0
+  constructor(inputEditor) {
+    super()
+    this.inputEditor = inputEditor
 
-    // CodeMirror is exposed in /index.html
-    this.editor = CodeMirror.fromTextArea(document.querySelector('.json-input'), {
-      gutters: ["CodeMirror-lint-markers"],
-      lineNumbers: true,
-      smartIndent: true,
-      autofocus: true,
-      extraKeys: {
-        Tab: false
-      },
-      indentUnit: 2,
-      tabSize: 2,
-      mode: 'application/javascript',
-      lint: true
-    })
+    // Welcome message
+    this.inputEditor.setValue(welcomeMessage)
 
-    this.editor.setValue(welcomeMessage)
-    this.editor.setCursor({
+    // Place cursor (after the welcome message)
+    this.inputEditor.setCursor({
       line: 10
     })
 
-    // CodeMirror readonly filter output
-    this.output = CodeMirror.fromTextArea(document.querySelector('.filter-output'), {
-      lineNumbers: true,
-      smartIndent: true,
-      readOnly: true,
-      mode: 'application/javascript',
-      lint: true
+    // Handle functions that respond to input
+    this.handleChangeEvents()
+  }
+
+  /**
+   * Respond to editor and filter input
+   */
+
+  handleChangeEvents() {
+
+    // Change event triggers input validation
+    this.inputEditor.on('change', _ => {
+      this.validate(this.inputEditor.getValue())
     })
 
-    this.editor.on('change', _ => this.update())
-
-    // Trigger a change event for pasting data, with 'format' set to true
-    this.editor.on('inputRead', (cm, e) => {
-      if (e.origin == 'paste') {
-        this.update({
-          format: true
-        })
+    // Paste (Cmd / Cntrl + v) triggers input validation and auto-format
+    this.inputEditor.on('inputRead', (cm, e) => {
+      if ('paste' == e.origin) {
+        this.validate(e.text)
+        this.formatInput()
       }
-    })
-
-    // Pass the jq filter on to the parse function
-    $('.filter-input').on('keyup', e => {
-      let filter = $(e.target).val()
-      this.filter = filter
-      this.runFilter()
     })
   }
 
   /**
-   * Fires when a change is registered in the editor
+   * Validate editor input. Emits 'valid-input' and sets this.data.
    *
-   * @param {Objects} opts
+   * @param {String} input Input to be parsed by json5
    */
 
-  update(opts) {
-    opts = opts || {}
-    let input = this.editor.getValue()
+  validate(input) {
     try {
       this.data = json5.parse(input)
-      if (opts.format) {
-        this.formatInput()
-      }
-      if ($('.bottom-wrapper').hasClass('hidden')) {
-        $('.bottom-wrapper').removeClass('hidden')
-        $('.filter-input').focus()
-      } else {
-        this.runFilter()
-      }
+      this.emit('valid-input')
+      return true
     } catch (e) {
-      // No-op here allows for live-updating output while editing input
+      this.data = null
+      return false
     }
   }
 
@@ -102,9 +79,10 @@ class Editor {
    */
 
   formatInput() {
-    let json = JSON.stringify(this.data, null, 2)
-    this.editor.setValue(json)
-    this.lastFormatted = now()
+    if (null !== this.data) {
+      let json = JSON.stringify(this.data, null, 2)
+      this.inputEditor.setValue(json)
+    }
   }
 
   /**
@@ -113,72 +91,43 @@ class Editor {
    * @param {String} filter
    */
 
-  runFilter() {
-    let filter = this.filter
+  runFilter(filter) {
+
+    // Ignore empty filters
     if (!filter.length) {
-      this.hideRightPanel()
+      this.emit('filter-invalid')
       return
     }
+
+    // This will run 'result=<obj><filter>', and set it on the sandbox object
+    let code = `result = x${filter}`
     let sandbox = {
       x: this.data,
       result: null
     }
-    let code = `result = x${filter}`
 
-    // Try to run through JavaScript vm
+    // Try to run through JavaScript vm first
     try {
       new vm.Script(code).runInNewContext(sandbox)
-      this.showOutput(sandbox.result)
+      this.emit('filter-valid', sandbox.result)
     } catch (e) {
       try {
 
-        // Try jq filter
+        // If JavaScript filter fails, run through jq
         jq.run(filter, this.data, {
           input: 'json',
           output: 'json'
         }).then(result => {
-          this.showOutput(result)
+
+          // The filter worked
+          this.emit('filter-valid', result)
         }).catch(e => {
-          this.hideRightPanel()
+          this.emit('filter-invalid')
         });
       } catch (e) {
-        this.hideRightPanel()
+        this.emit('filter-invalid')
       }
     }
-  }
-
-  /**
-   * Show the read-only filter output
-   */
-
-  showOutput(value) {
-    let output = JSON.stringify(value, null, 2)
-    this.output.setValue(output)
-    this.showRightPanel()
-  }
-
-  /**
-   * Hides the bottom bar
-   */
-
-  hideBottomBar() {
-    $('.bottom-wrapper').addClass('hidden')
-  }
-
-  /**
-   * Show the right panel
-   */
-
-  showRightPanel() {
-    $('.panel-left').css('width', '50%')
-  }
-
-  /**
-   * Show the left panel
-   */
-
-  hideRightPanel() {
-    $('.panel-left').css('width', '100%')
   }
 }
 
