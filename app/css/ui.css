@@ -36,6 +36,7 @@
 .filter-icon {
   position: absolute;
   height: 30px;
+  width: 30px;
   left: 8px;
   top: 5px;
 }
