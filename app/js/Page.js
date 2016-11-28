@@ -50,15 +50,23 @@ class Page {
       if ($('.bottom-wrapper').hasClass('hidden')) {
         this.showBottomBar()
         this.focusFilter()
+      } else {
+
+        // Live-update the output
+        let filter = $(this.filter).val()
+        this.editor.runFilter(filter)
       }
     })
 
-    this.editor.on('filter-valid', result => {
-      this.output.show(result)
+    this.editor.on('filter-valid', filter => {
+      $('.filter-icon').attr('src', `app/assets/${filter.type}.svg`)
+      this.output.show(filter.result)
       this.showRightPanel()
     })
 
     this.editor.on('filter-invalid', _ => {
+      console.log('here')
+      $('.filter-icon').attr('src', 'app/assets/type.png')
       this.hideRightPanel()
     })
 
