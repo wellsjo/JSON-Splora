@@ -111,7 +111,7 @@ class Editor extends EventEmitter {
 
     // Ignore empty filters
     if (!filter.length) {
-      this.emit('filter-invalid')
+      this.emit('filter-empty')
       return
     }
 
@@ -125,10 +125,14 @@ class Editor extends EventEmitter {
     // Try to run through JavaScript vm first
     try {
       new vm.Script(code).runInNewContext(sandbox)
-      this.emit('filter-valid', {
-        result: sandbox.result,
-        type: 'js'
-      })
+      if (sandbox.result) {
+        this.emit('filter-valid', {
+          result: sandbox.result,
+          type: 'js'
+        })
+      } else {
+        this.emit('filter-invalid')
+      }
     } catch (e) {
       try {
 

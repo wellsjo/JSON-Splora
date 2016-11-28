@@ -66,7 +66,11 @@ class Page {
 
     this.editor.on('filter-invalid', _ => {
       $('.filter-icon').attr('src', 'app/assets/type.png')
-      this.output.show('')
+    })
+
+    this.editor.on('filter-empty', _ => {
+      $('.filter-icon').attr('src', 'app/assets/type.png')
+      this.hideRightPanel()
     })
 
     this.filter.on('keyup', e => {
