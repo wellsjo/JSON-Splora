@@ -25,7 +25,7 @@ class Editor extends EventEmitter {
 
     // Create CodeMirror element
     this.inputEditor = CodeMirror.fromTextArea(el, {
-      gutters: ["CodeMirror-lint-markers"],
+      gutters: ['CodeMirror-lint-markers'],
       lineNumbers: true,
       smartIndent: true,
       autofocus: true,
@@ -125,7 +125,10 @@ class Editor extends EventEmitter {
     // Try to run through JavaScript vm first
     try {
       new vm.Script(code).runInNewContext(sandbox)
-      this.emit('filter-valid', sandbox.result)
+      this.emit('filter-valid', {
+        result: sandbox.result,
+        type: 'js'
+      })
     } catch (e) {
       try {
 
@@ -134,10 +137,20 @@ class Editor extends EventEmitter {
           input: 'json',
           output: 'json'
         }).then(result => {
-
-          // The filter worked
-          this.emit('filter-valid', result)
+          if (result === null) {
+            // jq returns null for incorrect keys, but we will count them as
+            // invalid
+            this.emit('filter-invalid')
+          } else {
+            // The jq filter worked
+            this.emit('filter-valid', {
+              result: result,
+              type: 'jq'
+            })
+          }
         }).catch(e => {
+
+          // jq filter failed
           this.emit('filter-invalid')
         });
       } catch (e) {
