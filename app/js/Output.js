@@ -21,6 +21,9 @@ class Output {
    */
 
   show(object) {
+    if (object === '') {
+      return
+    }
     let formatted = JSON.stringify(object, null, 2)
     this.outputEditor.setValue(formatted)
   }
