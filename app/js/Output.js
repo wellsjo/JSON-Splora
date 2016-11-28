@@ -21,11 +21,11 @@ class Output {
    */
 
   show(object) {
-    if (object === '') {
-      return
+    let val = ''
+    if (object !== '') {
+      val = JSON.stringify(object, null, 2)
     }
-    let formatted = JSON.stringify(object, null, 2)
-    this.outputEditor.setValue(formatted)
+    this.outputEditor.setValue(val)
   }
 }
 
