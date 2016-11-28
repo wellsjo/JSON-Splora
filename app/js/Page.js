@@ -65,9 +65,8 @@ class Page {
     })
 
     this.editor.on('filter-invalid', _ => {
-      console.log('here')
       $('.filter-icon').attr('src', 'app/assets/type.png')
-      this.hideRightPanel()
+      this.output.show('')
     })
 
     this.filter.on('keyup', e => {

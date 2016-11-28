@@ -36,7 +36,7 @@ class Editor extends EventEmitter {
       tabSize: 2,
       mode: {
         name: 'javascript',
-        json: true
+        json: false
       },
       lint: true
     })
@@ -67,7 +67,7 @@ class Editor extends EventEmitter {
     // Paste (Cmd / Cntrl + v) triggers input validation and auto-format
     this.inputEditor.on('inputRead', (cm, e) => {
       if ('paste' == e.origin) {
-        this.validate(e.text)
+        this.validate(this.inputEditor.getValue())
         this.formatInput()
       }
     })
