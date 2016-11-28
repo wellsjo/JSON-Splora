@@ -84,6 +84,8 @@ class Page {
    */
 
   showBottomBar() {
+    $('.panel-left').css('bottom', '40px')
+    $('.panel-left').css('margin-top', '40px')
     $('.bottom-wrapper').removeClass('hidden')
   }
 
