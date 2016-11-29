@@ -4,7 +4,13 @@
 
 'use strict'
 
-const app = require('electron').app
+/**
+* Call this when a theme menu button is clicked.
+* This function requires myApp is set to an instance of the app. 
+*/
+function themeClicked(menuItem, browserWindow, event){
+  console.log(myApp.setThemeForAllPages(menuItem.label))
+}
 
 const template = [{
   label: 'Edit',
@@ -40,6 +46,36 @@ const template = [{
   }, {
     type: 'separator'
   }, {
+    label: 'Theme',
+    submenu: [{
+      label: 'default',
+      click(menuItem, browserWindow, event) {
+        themeClicked(menuItem, browserWindow, event)
+      }
+    }, {
+      label: 'elegant',
+      click(menuItem, browserWindow, event) {
+        themeClicked(menuItem, browserWindow, event)
+      }
+    }, {
+      label: 'mdn-like',
+      click(menuItem, browserWindow, event) {
+        themeClicked(menuItem, browserWindow, event)
+      }
+    }, {
+      label: 'neat',
+      click(menuItem, browserWindow, event) {
+        themeClicked(menuItem, browserWindow, event)
+      }
+    }, {
+      label: 'neo',
+      click(menuItem, browserWindow, event) {
+        themeClicked(menuItem, browserWindow, event)
+      }
+    }]
+  }, {
+    type: 'separator'
+  },{
     role: 'togglefullscreen'
   }]
 }, {
@@ -61,7 +97,7 @@ const template = [{
 
 if (process.platform === 'darwin') {
   template.unshift({
-      label: app.getName(),
+      label: 'Electron1',
       submenu: [{
         role: 'about'
       }, {

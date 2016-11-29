@@ -32,8 +32,7 @@ function createWindow() {
 
   mainWindow.loadURL(`file://${__dirname}/index.html`)
 
-  // Enable menu and context menu
-  Menu.setApplicationMenu(Menu.buildFromTemplate(menuTemplate))
+  // Enable context menu
   enableContextMenu()
 
   // Open the DevTools.

@@ -54,6 +54,13 @@ class Editor extends EventEmitter {
   }
 
   /**
+  * Set the editor's theme to the specified theme.
+  */
+  setTheme(theme) {
+    this.inputEditor.setOption('theme', theme)
+  }
+
+  /**
    * Respond to editor and filter input
    */
 
@@ -91,7 +98,7 @@ class Editor extends EventEmitter {
   }
 
   /**
-   * Forats the code in the editor
+   * Formats the code in the editor
    */
 
   formatInput() {

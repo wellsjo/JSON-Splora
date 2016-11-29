@@ -74,7 +74,14 @@
   <!-- Entrypoint -->
   <script>
     const App = require('./app/js/App')
-    new App()
+    myApp = new App()
+    
+    // Create Main Menu
+    const {remote} = require('electron')
+    const {Menu} = remote
+    const menuTemplate = require('./app/system/menu')
+    Menu.setApplicationMenu(Menu.buildFromTemplate(menuTemplate))
+
   </script>
 </body>
 
