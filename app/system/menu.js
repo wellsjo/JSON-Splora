@@ -97,7 +97,7 @@ const template = [{
 
 if (process.platform === 'darwin') {
   template.unshift({
-      label: 'Electron1',
+      label: 'JSON-Splora',
       submenu: [{
         role: 'about'
       }, {
