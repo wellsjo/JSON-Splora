@@ -17,6 +17,12 @@ class App {
   constructor(document) {
     this.pages = [new Page()]
   }
+
+  setThemeForAllPages(theme){
+  	this.pages.forEach(function(page){
+  		page.setTheme(theme);
+  	})
+  }
 }
 
 

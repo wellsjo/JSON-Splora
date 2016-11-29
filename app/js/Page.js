@@ -112,6 +112,10 @@ class Page {
   hideRightPanel() {
     $('.panel-left').css('width', '100%')
   }
+
+  setTheme(theme) {
+    this.editor.setTheme(theme)
+  }
 }
 
 
