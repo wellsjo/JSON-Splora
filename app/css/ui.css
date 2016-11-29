@@ -1,7 +1,7 @@
 /* CODEMIRROR */
 
 .CodeMirror {
-  height: calc(100vh);
+  height: 100%;
 }
 
 /* BOTTOM BAR */
