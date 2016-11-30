@@ -8,8 +8,8 @@
  * Dependencies
  */
 
+const { EventEmitter } = require('events')
 const welcomeMessage = require('./welcome-message')
-const {EventEmitter} = require('events')
 const json5 = require('json5')
 const jq = require('node-jq')
 const vm = require('vm')
@@ -142,32 +142,26 @@ class Editor extends EventEmitter {
         this.emit('filter-invalid')
       }
     } catch (e) {
-      try {
-
-        // If JavaScript filter fails, run through jq
-        jq.run(filter, this.data, {
-          input: 'json',
-          output: 'json'
-        }).then(result => {
-          if (result === null) {
-            // jq returns null for incorrect keys, but we will count them as
-            // invalid
-            this.emit('filter-invalid')
-          } else {
-            // The jq filter worked
-            this.emit('filter-valid', {
-              result: result,
-              type: 'jq'
-            })
-          }
-        }).catch(e => {
-
-          // jq filter failed
+      // If JavaScript filter fails, run through jq
+      jq.run(filter, this.data, {
+        input: 'json',
+        output: 'json'
+      }).then(result => {
+        if (result === null) {
+          // jq returns null for incorrect keys, but we will count them as
+          // invalid
           this.emit('filter-invalid')
-        });
-      } catch (e) {
+        } else {
+          // The jq filter worked
+          this.emit('filter-valid', {
+            result: result,
+            type: 'jq'
+          })
+        }
+      }).catch(e => {
+        // jq filter failed
         this.emit('filter-invalid')
-      }
+      });
     }
   }
 }
