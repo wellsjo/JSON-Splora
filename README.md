@@ -8,10 +8,10 @@
 - Built with [Electron](http://electron.atom.io/)
 - Editor and output both use [CodeMirror](https://codemirror.net/)
 - Input is parsed as [json5](http://json5.org/)
-- Filter with JavaScript or [jq](https://stedolan.github.io/jq/)
+- Filter with [jq](https://stedolan.github.io/jq/) or JavaScript
 
 #### Input
-The editor is actually a JavaScript editor, and the input is parsed as [json5](http://json5.org/). This allows for comments as well as a relaxed JSON input format.
+The editor is a JavaScript editor, and the input is parsed as [json5](http://json5.org/). This allows for comments as well as a relaxed JSON input format.
 
 #### Filters
 Once the editor has valid JSON, an input window will appear below, allowing you to manipulate the object with JavaScript or [jq](https://stedolan.github.io/jq/).
@@ -35,6 +35,9 @@ npm run-script build-win32
 npm run-script build
 ```
 This will create a local directory `JSON-Splora-<system>`, which contains the application.
+
+## Contributing
+Contributions are welcome! Progress will be slow otherwise.
 
 ## License
 [MIT](https://github.com/wellsjo/json-splora/blob/master/LICENSE)
