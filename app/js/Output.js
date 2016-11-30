@@ -12,7 +12,9 @@ class Output {
       smartIndent: true,
       readOnly: true,
       mode: 'application/javascript',
-      lint: true
+      lint: true,
+      foldGutter: true,
+      gutters: ['CodeMirror-lint-markers', 'CodeMirror-linenumbers', 'CodeMirror-foldgutter']
     })
   }
 
