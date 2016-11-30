@@ -20,7 +20,9 @@ class App {
 
   constructor() {
     this.pages = [new Page()]
-	this.current_page = 0;
+    this.current_page = 0;
+
+    this.theme = 'default'
   }
 
   /**
@@ -30,15 +32,28 @@ class App {
    */
 
   setTheme(theme) {
+    this.theme = theme
     this.pages.forEach(page => page.setTheme(theme))
   }
-  
-  /**
+
+   /**
    * Get the current page
    */
+
    getCurrentPage() {
      return this.pages[this.current_page];
    }
+  
+   /**
+   * Create a new page
+   */
+
+   createPage() {
+     let p = new Page()
+     p.setTheme(this.theme)
+     this.pages.append(p)
+   }
+
 }
 
 
