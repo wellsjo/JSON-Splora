@@ -1,16 +1,8 @@
 /**
- *
+ * Context menu
  */
 
 'use strict'
-
-/**
-* Call this when a theme menu button is clicked.
-* This function requires myApp is set to an instance of the app. 
-*/
-function themeClicked(menuItem, browserWindow, event){
-  console.log(myApp.setThemeForAllPages(menuItem.label))
-}
 
 const template = [{
   label: 'Edit',
@@ -75,7 +67,7 @@ const template = [{
     }]
   }, {
     type: 'separator'
-  },{
+  }, {
     role: 'togglefullscreen'
   }]
 }, {
@@ -148,6 +140,14 @@ if (process.platform === 'darwin') {
     label: 'Bring All to Front',
     role: 'front'
   }]
+}
+
+/**
+ * Theme click callback
+ */
+
+function themeClicked(menuItem, browserWindow, event) {
+  APP.setTheme(menuItem.label)
 }
 
 module.exports = template

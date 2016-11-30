@@ -73,15 +73,16 @@
 
   <!-- Entrypoint -->
   <script>
+
+    // Create global app object
     const App = require('./app/js/App')
-    myApp = new App()
-    
-    // Create Main Menu
+    const APP = new App()
+
+    // Create main menu (requires `APP` to be instantiated)
     const {remote} = require('electron')
     const {Menu} = remote
     const menuTemplate = require('./app/system/menu')
     Menu.setApplicationMenu(Menu.buildFromTemplate(menuTemplate))
-
   </script>
 </body>
 
