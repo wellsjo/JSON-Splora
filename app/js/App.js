@@ -14,14 +14,18 @@ const Page = require('./Page')
 
 class App {
 
-  constructor(document) {
+  constructor() {
     this.pages = [new Page()]
   }
 
-  setThemeForAllPages(theme){
-  	this.pages.forEach(function(page){
-  		page.setTheme(theme);
-  	})
+  /**
+   * Set theme for each page
+   *
+   * @param {String} theme
+   */
+
+  setTheme(theme) {
+    this.pages.forEach(page => page.setTheme(theme))
   }
 }
 
