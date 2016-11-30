@@ -11,6 +11,7 @@
 const { EventEmitter } = require('events')
 const welcomeMessage = require('./welcome-message')
 const json5 = require('json5')
+const beautify = require('js-beautify').js_beautify
 const jq = require('node-jq')
 const vm = require('vm')
 
@@ -40,6 +41,13 @@ class Editor extends EventEmitter {
       },
       lint: true
     })
+
+    // Create js-beautify format options
+    this.beautify_options = {
+      indent_size: 2,
+      indent_char: ' ',
+      preserve_newlines: false
+    }
 
     // Welcome message
     this.editor.setValue(welcomeMessage)
@@ -103,8 +111,19 @@ class Editor extends EventEmitter {
 
   formatInput() {
     if (null !== this.data) {
-      let json = JSON.stringify(this.data, null, 2)
-      this.editor.setValue(json)
+      let beautified = beautify(this.editor.getValue(), this.beautify_options)
+      this.editor.setValue(beautified)
+    }
+  }
+
+  /**
+   * Minifies the code in the editor
+   */
+
+  minifyInput() {
+    if (null !== this.data) {
+      let minified = JSON.stringify(this.data)
+      this.editor.setValue(minified)
     }
   }
 

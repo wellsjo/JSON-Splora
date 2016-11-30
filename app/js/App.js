@@ -20,6 +20,7 @@ class App {
 
   constructor() {
     this.pages = [new Page()]
+	this.current_page = 0;
   }
 
   /**
@@ -31,6 +32,13 @@ class App {
   setTheme(theme) {
     this.pages.forEach(page => page.setTheme(theme))
   }
+  
+  /**
+   * Get the current page
+   */
+   getCurrentPage() {
+     return this.pages[this.current_page];
+   }
 }
 
 
