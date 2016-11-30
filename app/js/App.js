@@ -14,6 +14,10 @@ const Page = require('./Page')
 
 class App {
 
+  /**
+   * Start application by creating a page
+   */
+
   constructor() {
     this.pages = [new Page()]
   }
