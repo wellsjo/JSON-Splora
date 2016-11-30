@@ -36,15 +36,15 @@ class App {
     this.pages.forEach(page => page.setTheme(theme))
   }
 
-   /**
+  /**
    * Get the current page
    */
 
    getCurrentPage() {
      return this.pages[this.current_page];
    }
-  
-   /**
+
+  /**
    * Create a new page
    */
 
