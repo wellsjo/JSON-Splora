@@ -33,7 +33,6 @@ class Editor extends EventEmitter {
 
     // Create CodeMirror element
     this.editor = CodeMirror.fromTextArea(el, {
-      gutters: ['CodeMirror-lint-markers'],
       lineNumbers: true,
       smartIndent: true,
       autofocus: true,
@@ -46,8 +45,10 @@ class Editor extends EventEmitter {
         name: 'javascript',
         json: false
       },
-      lint: true
-    })
+      lint: true,
+      foldGutter: true,
+      gutters: ['CodeMirror-lint-markers', 'CodeMirror-linenumbers', 'CodeMirror-foldgutter']
+    });
 
     // Welcome message
     this.editor.setValue(welcomeMessage)
