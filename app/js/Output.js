@@ -27,6 +27,14 @@ class Output {
     }
     this.outputEditor.setValue(val)
   }
+
+  /**
+   * Set the theme dynamically
+   */
+
+  setTheme(theme) {
+    this.outputEditor.setOption('theme', theme)
+  }
 }
 
 /**

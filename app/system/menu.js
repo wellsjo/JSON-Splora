@@ -1,10 +1,8 @@
 /**
- *
+ * Context menu
  */
 
 'use strict'
-
-const app = require('electron').app
 
 const template = [{
   label: 'Edit',
@@ -40,6 +38,36 @@ const template = [{
   }, {
     type: 'separator'
   }, {
+    label: 'Theme',
+    submenu: [{
+      label: 'default',
+      click(menuItem, browserWindow, event) {
+        themeClicked(menuItem, browserWindow, event)
+      }
+    }, {
+      label: 'elegant',
+      click(menuItem, browserWindow, event) {
+        themeClicked(menuItem, browserWindow, event)
+      }
+    }, {
+      label: 'mdn-like',
+      click(menuItem, browserWindow, event) {
+        themeClicked(menuItem, browserWindow, event)
+      }
+    }, {
+      label: 'neat',
+      click(menuItem, browserWindow, event) {
+        themeClicked(menuItem, browserWindow, event)
+      }
+    }, {
+      label: 'neo',
+      click(menuItem, browserWindow, event) {
+        themeClicked(menuItem, browserWindow, event)
+      }
+    }]
+  }, {
+    type: 'separator'
+  }, {
     role: 'togglefullscreen'
   }]
 }, {
@@ -61,7 +89,7 @@ const template = [{
 
 if (process.platform === 'darwin') {
   template.unshift({
-      label: app.getName(),
+      label: 'JSON-Splora',
       submenu: [{
         role: 'about'
       }, {
@@ -112,6 +140,14 @@ if (process.platform === 'darwin') {
     label: 'Bring All to Front',
     role: 'front'
   }]
+}
+
+/**
+ * Theme click callback
+ */
+
+function themeClicked(menuItem, browserWindow, event) {
+  APP.setTheme(menuItem.label)
 }
 
 module.exports = template
