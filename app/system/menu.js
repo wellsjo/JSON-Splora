@@ -20,6 +20,18 @@ const template = [{
     role: 'paste'
   }, {
     role: 'selectall'
+  }, {
+    type: 'separator'
+  }, {
+    label: 'Format',
+    click(menuItem, browserWindow, event) {
+      APP.getCurrentPage().editor.formatInput()
+    }
+  }, {
+    label: 'Minify',
+    click(menuItem, browserWindow, event) {
+      APP.getCurrentPage().editor.minifyInput()
+    }
   }]
 }, {
   label: 'View',
