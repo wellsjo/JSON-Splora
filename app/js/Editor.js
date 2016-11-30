@@ -9,7 +9,7 @@
  */
 
 const welcomeMessage = require('./welcome-message')
-const EventEmitter = require('events').EventEmitter
+const {EventEmitter} = require('events')
 const json5 = require('json5')
 const jq = require('node-jq')
 const vm = require('vm')
@@ -54,6 +54,14 @@ class Editor extends EventEmitter {
   }
 
   /**
+   * Set the theme dynamically
+   */
+
+  setTheme(theme) {
+    this.inputEditor.setOption('theme', theme)
+  }
+
+  /**
    * Respond to editor and filter input
    */
 
@@ -91,7 +99,7 @@ class Editor extends EventEmitter {
   }
 
   /**
-   * Forats the code in the editor
+   * Formats the code in the editor
    */
 
   formatInput() {

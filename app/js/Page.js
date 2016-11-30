@@ -111,6 +111,15 @@ class Page {
   hideRightPanel() {
     $('.panel-left').css('width', '100%')
   }
+
+  /**
+   * Sets the theme on both editors
+   */
+
+  setTheme(theme) {
+    this.editor.setTheme(theme)
+    this.output.setTheme(theme)
+  }
 }
 
 
