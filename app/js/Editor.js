@@ -24,7 +24,7 @@ class Editor extends EventEmitter {
     super()
 
     // Create CodeMirror element
-    this.inputEditor = CodeMirror.fromTextArea(el, {
+    this.editor = CodeMirror.fromTextArea(el, {
       gutters: ['CodeMirror-lint-markers'],
       lineNumbers: true,
       smartIndent: true,
@@ -42,10 +42,10 @@ class Editor extends EventEmitter {
     })
 
     // Welcome message
-    this.inputEditor.setValue(welcomeMessage)
+    this.editor.setValue(welcomeMessage)
 
     // Place cursor (after the welcome message)
-    this.inputEditor.setCursor({
+    this.editor.setCursor({
       line: 10
     })
 
@@ -58,7 +58,7 @@ class Editor extends EventEmitter {
    */
 
   setTheme(theme) {
-    this.inputEditor.setOption('theme', theme)
+    this.editor.setOption('theme', theme)
   }
 
   /**
@@ -68,14 +68,14 @@ class Editor extends EventEmitter {
   handleChangeEvents() {
 
     // Change event triggers input validation
-    this.inputEditor.on('change', _ => {
-      this.validate(this.inputEditor.getValue())
+    this.editor.on('change', _ => {
+      this.validate()
     })
 
     // Paste (Cmd / Cntrl + v) triggers input validation and auto-format
-    this.inputEditor.on('inputRead', (cm, e) => {
+    this.editor.on('inputRead', (cm, e) => {
       if ('paste' == e.origin) {
-        this.validate(this.inputEditor.getValue())
+        this.validate()
         this.formatInput()
       }
     })
@@ -83,11 +83,10 @@ class Editor extends EventEmitter {
 
   /**
    * Validate editor input. Emits 'valid-input' and sets this.data.
-   *
-   * @param {String} input Input to be parsed by json5
    */
 
-  validate(input) {
+  validate() {
+    let input = this.editor.getValue()
     try {
       this.data = json5.parse(input)
       this.emit('valid-input')
@@ -105,7 +104,7 @@ class Editor extends EventEmitter {
   formatInput() {
     if (null !== this.data) {
       let json = JSON.stringify(this.data, null, 2)
-      this.inputEditor.setValue(json)
+      this.editor.setValue(json)
     }
   }
 
