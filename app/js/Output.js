@@ -6,6 +6,10 @@
 
 class Output {
 
+  /**
+   * @param {Element} el The element to use for the CodeMirror object
+   */
+
   constructor(el) {
     this.outputEditor = CodeMirror.fromTextArea(el, {
       lineNumbers: true,
@@ -17,19 +21,17 @@ class Output {
   }
 
   /**
-   * Format and set output
+   * Formats and displays output
+   *
+   * @param {Object} data The data object to format and display
    */
 
-  show(object) {
-    let val = ''
-    if (object !== '') {
-      val = JSON.stringify(object, null, 2)
-    }
-    this.outputEditor.setValue(val)
+  show(data) {
+    this.outputEditor.setValue(JSON.stringify(data, null, 2))
   }
 
   /**
-   * Set the theme dynamically
+   * Sets the theme dynamically
    */
 
   setTheme(theme) {
