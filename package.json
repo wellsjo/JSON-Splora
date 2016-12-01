@@ -1,8 +1,11 @@
 {
   "name": "JSON-Splora",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Data exploration and sharing",
   "main": "index.js",
+  "bin": {
+    "jsplora": "bin/jsplora"
+  },
   "scripts": {
     "start": "ENV=development electron .",
     "build-darwin": "node_modules/.bin/electron-packager . --darwin --overwrite",
@@ -19,10 +22,10 @@
   ],
   "author": "Wells Johnston",
   "devDependencies": {
-    "electron": "^1.4.8",
     "electron-packager": "^8.3.0"
   },
   "dependencies": {
+    "electron": "^1.4.8",
     "codemirror": "^5.20.2",
     "electron-context-menu": "^0.8.0",
     "electron-default-menu": "^1.0.0",
