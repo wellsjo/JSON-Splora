@@ -1,0 +1,11 @@
+#!/usr/bin/env node
+
+/**
+ * Allow JSON-splora to be run from the command line with "jsplora"
+ */
+
+require('child_process')
+  .spawn(require('electron'), [`${__dirname}/../`])
+  .on('exit', status => {
+    process.exit(status)
+  })
