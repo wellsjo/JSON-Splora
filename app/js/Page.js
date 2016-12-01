@@ -18,6 +18,11 @@ const Output = require('./Output')
 
 class Page {
 
+  /**
+   * Creates input and output editors, sets the horizontal slider, and
+   * registers DOM events
+   */
+
   constructor() {
     let editorEl = document.querySelector('.json-input')
     let outputEl = document.querySelector('.filter-output')
@@ -34,14 +39,14 @@ class Page {
     })
 
     // Respond to valid input and key events
-    this.setEditorEvents()
+    this.handleEvents()
   }
 
   /**
    * Respond to events emitted from the editor
    */
 
-  setEditorEvents() {
+  handleEvents() {
 
     // Show the bottom bar when valid input is detected
     this.editor.on('input-valid', _ => {
@@ -55,6 +60,7 @@ class Page {
       }
     })
 
+    // Show filter type on valid filter
     this.editor.on('filter-valid', filter => {
       $('.filter-icon').attr('src', `app/assets/${filter.type}.svg`)
       this.output.show(filter.result)

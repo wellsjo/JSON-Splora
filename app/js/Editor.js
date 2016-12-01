@@ -21,6 +21,8 @@ const vm = require('vm')
 class Editor extends EventEmitter {
 
   /**
+   * Creates the input editor, sets a welcome message, and registers DOM events
+   *
    * @param {Element} el The textarea element to use for CodeMirror instance
    * @param {jQuery} filter The filter input element
    */
@@ -56,7 +58,7 @@ class Editor extends EventEmitter {
     })
 
     // Handle functions that respond to input
-    this.handleChangeEvents()
+    this.handleEvents()
   }
 
   /**
@@ -71,7 +73,7 @@ class Editor extends EventEmitter {
    * Respond to editor and filter input
    */
 
-  handleChangeEvents() {
+  handleEvents() {
 
     // Change event triggers input validation
     this.editor.on('change', _ => {
@@ -82,7 +84,7 @@ class Editor extends EventEmitter {
     this.editor.on('inputRead', (cm, e) => {
       if ('paste' == e.origin) {
         this.validate()
-        this.formatInput()
+        this.format()
       }
     })
 
@@ -112,7 +114,7 @@ class Editor extends EventEmitter {
    * Formats the code in the editor
    */
 
-  formatInput() {
+  format() {
     if (null !== this.data) {
       this.editor.setValue(JSON.stringify(this.data, null, 2))
     }
@@ -124,8 +126,7 @@ class Editor extends EventEmitter {
 
   runFilter() {
 
-    // Define filter here so this function can be called externally without
-    // the filter param
+    // Set filter here so this function can be called externally
     let filter = this.filter.val()
 
     // Ignore empty filters
