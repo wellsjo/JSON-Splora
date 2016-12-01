@@ -1,7 +1,7 @@
 {
   "name": "json-splora",
   "version": "0.0.1",
-  "description": "Data exploration and sharing",
+  "description": "GUI for editing, visualizing, and manipulating JSON data",
   "main": "index.js",
   "bin": {
     "jsplora": "bin/jsplora"
