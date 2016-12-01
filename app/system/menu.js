@@ -25,12 +25,12 @@ const template = [{
   }, {
     label: 'Format',
     click(menuItem, browserWindow, event) {
-      APP.getCurrentPage().editor.formatInput()
+      APP.getCurrentPage().editor.format()
     }
   }, {
     label: 'Minify',
     click(menuItem, browserWindow, event) {
-      APP.getCurrentPage().editor.minifyInput()
+      APP.getCurrentPage().editor.minify()
     }
   }]
 }, {
