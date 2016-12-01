@@ -23,31 +23,41 @@ class MainMenu {
 		
 		// First create static reference to themeClicked callback
 		MainMenu.themeClicked = function(menuItem, browserWindow, event) {
-			MainMenu.app.setTheme(menuItem.label)
+			MainMenu.app.setTheme(menuItem.theme)
 		}
 
 		return [{
-	      label: 'default',
+	      label: 'Default',
+	      theme: 'default',
+	      type: 'radio',
 	      click(menuItem, browserWindow, event) {
 	        MainMenu.themeClicked(menuItem, browserWindow, event)
 	      }
 	    }, {
-	      label: 'elegant',
+	      label: 'Elegant',
+	      theme: 'Elegant',
+	      type: 'radio',
 	      click(menuItem, browserWindow, event) {
 	        MainMenu.themeClicked(menuItem, browserWindow, event)
 	      }
 	    }, {
-	      label: 'mdn-like',
+	      label: 'Mdn-Like',
+	      theme: 'mdn-like',
+	      type: 'radio',
 	      click(menuItem, browserWindow, event) {
 	        MainMenu.themeClicked(menuItem, browserWindow, event)
 	      }
 	    }, {
-	      label: 'neat',
+	      label: 'Neat',
+	      theme: 'neat',
+	      type: 'radio',
 	      click(menuItem, browserWindow, event) {
 	        MainMenu.themeClicked(menuItem, browserWindow, event)
 	      }
 	    }, {
-	      label: 'neo',
+	      label: 'Neo',
+	      theme: 'neo',
+	      type: 'radio',
 	      click(menuItem, browserWindow, event) {
 	        MainMenu.themeClicked(menuItem, browserWindow, event)
 	      }
