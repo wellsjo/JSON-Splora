@@ -1,5 +1,5 @@
 {
-  "name": "JSON-Splora",
+  "name": "json-splora",
   "version": "0.0.1",
   "description": "Data exploration and sharing",
   "main": "index.js",
