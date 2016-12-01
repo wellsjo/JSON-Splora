@@ -4,7 +4,7 @@
   "description": "Data exploration and sharing",
   "main": "index.js",
   "scripts": {
-    "start": "electron .",
+    "start": "ENV=development electron .",
     "build-darwin": "node_modules/.bin/electron-packager . --darwin --overwrite",
     "build-linux": "node_modules/.bin/electron-packager . --linux --overwrite",
     "build-win32": "node_modules/.bin/electron-packager . --win32 --overwrite",
