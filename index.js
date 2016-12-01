@@ -31,7 +31,7 @@ function createWindow() {
   // Enable context menu
   enableContextMenu()
 
-  // Open the DevTools.
+  // Open the DevTools
   if (env === 'dev') {
     mainWindow.webContents.openDevTools()
   }

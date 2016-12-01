@@ -20,8 +20,14 @@ const vm = require('vm')
 
 class Editor extends EventEmitter {
 
-  constructor(el) {
+  /**
+   * @param {Element} el The textarea element to use for CodeMirror instance
+   * @param {jQuery} filter The filter input element
+   */
+
+  constructor(el, filter) {
     super()
+    this.filter = filter
 
     // Create CodeMirror element
     this.editor = CodeMirror.fromTextArea(el, {
@@ -79,17 +85,22 @@ class Editor extends EventEmitter {
         this.formatInput()
       }
     })
+
+    // Run the filter as the user types
+    this.filter.on('keyup', _ => {
+      this.runFilter()
+    })
   }
 
   /**
-   * Validate editor input. Emits 'valid-input' and sets this.data.
+   * Validate editor input. Emits 'input-valid' and sets this.data.
    */
 
   validate() {
     let input = this.editor.getValue()
     try {
       this.data = json5.parse(input)
-      this.emit('valid-input')
+      this.emit('input-valid')
       return true
     } catch (e) {
       this.data = null
@@ -103,21 +114,22 @@ class Editor extends EventEmitter {
 
   formatInput() {
     if (null !== this.data) {
-      let json = JSON.stringify(this.data, null, 2)
-      this.editor.setValue(json)
+      this.editor.setValue(JSON.stringify(this.data, null, 2))
     }
   }
 
   /**
    * Parse raw input as JavaScript first, then JQ
-   *
-   * @param {String} filter
    */
 
-  runFilter(filter) {
+  runFilter() {
+
+    // Define filter here so this function can be called externally without
+    // the filter param
+    let filter = this.filter.val()
 
     // Ignore empty filters
-    if (!filter.length) {
+    if (!filter || !filter.length) {
       this.emit('filter-empty')
       return
     }
@@ -141,16 +153,19 @@ class Editor extends EventEmitter {
         this.emit('filter-invalid')
       }
     } catch (e) {
+
       // If JavaScript filter fails, run through jq
       jq.run(filter, this.data, {
         input: 'json',
         output: 'json'
       }).then(result => {
         if (result === null) {
+
           // jq returns null for incorrect keys, but we will count them as
           // invalid
           this.emit('filter-invalid')
         } else {
+
           // The jq filter worked
           this.emit('filter-valid', {
             result: result,
@@ -158,6 +173,7 @@ class Editor extends EventEmitter {
           })
         }
       }).catch(e => {
+
         // jq filter failed
         this.emit('filter-invalid')
       });

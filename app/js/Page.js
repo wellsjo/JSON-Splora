@@ -21,13 +21,11 @@ class Page {
   constructor() {
     let editorEl = document.querySelector('.json-input')
     let outputEl = document.querySelector('.filter-output')
+    let filterInput = $('.filter-input')
 
     // Create input/output editors
-    this.editor = new Editor(editorEl)
+    this.editor = new Editor(editorEl, filterInput)
     this.output = new Output(outputEl)
-
-    // Create filter input
-    this.filter = $('.filter-input')
 
     // Enable slider pane UI
     $('.panel-left').resizable({
@@ -36,25 +34,24 @@ class Page {
     })
 
     // Respond to valid input and key events
-    this.handleEditorEvents()
+    this.setEditorEvents()
   }
 
   /**
    * Respond to events emitted from the editor
    */
 
-  handleEditorEvents() {
+  setEditorEvents() {
 
     // Show the bottom bar when valid input is detected
-    this.editor.on('valid-input', _ => {
+    this.editor.on('input-valid', _ => {
       if ($('.bottom-wrapper').hasClass('hidden')) {
         this.showBottomBar()
         this.focusFilter()
       } else {
 
-        // Live-update the output
-        let filter = $(this.filter).val()
-        this.editor.runFilter(filter)
+        // This enables live-updating the output as you edit the input
+        this.editor.runFilter()
       }
     })
 
@@ -64,18 +61,15 @@ class Page {
       this.showRightPanel()
     })
 
+    // Show generic filter icon when filter is invalid or empty
     this.editor.on('filter-invalid', _ => {
       $('.filter-icon').attr('src', 'app/assets/type.png')
     })
 
+    // Hide right panel when filter is empty
     this.editor.on('filter-empty', _ => {
       $('.filter-icon').attr('src', 'app/assets/type.png')
       this.hideRightPanel()
-    })
-
-    this.filter.on('keyup', e => {
-      let filter = $(e.target).val()
-      this.editor.runFilter(filter)
     })
   }
 
