@@ -103,10 +103,8 @@ class Editor extends EventEmitter {
     try {
       this.data = json5.parse(input)
       this.emit('input-valid')
-      return true
     } catch (e) {
       this.data = null
-      return false
     }
   }
 
@@ -135,19 +133,18 @@ class Editor extends EventEmitter {
       return
     }
 
-    // This will run 'result=<obj><filter>', and set it on the sandbox object
-    let code = `result = x${filter}`
-    let sandbox = {
+    // Use the JavaScript vm to evaluate the filter with this context
+    let script = `result = x${filter}`
+    let context = {
       x: this.data,
       result: null
     }
 
-    // Try to run through JavaScript vm first
     try {
-      new vm.Script(code).runInNewContext(sandbox)
-      if (sandbox.result) {
+      new vm.Script(script).runInNewContext(context)
+      if (context.result) {
         this.emit('filter-valid', {
-          result: sandbox.result,
+          result: context.result,
           type: 'js'
         })
       } else {
