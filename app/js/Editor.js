@@ -46,6 +46,7 @@ class Editor extends EventEmitter {
         json: false
       },
       lint: true,
+      matchBrackets: true,
       foldGutter: true,
       gutters: ['CodeMirror-lint-markers', 'CodeMirror-linenumbers', 'CodeMirror-foldgutter']
     });
