@@ -39,20 +39,19 @@ class App {
    * Get the current page
    */
 
-   getCurrentPage() {
-     return this.pages[this.current_page];
-   }
+  getCurrentPage() {
+    return this.pages[this.current_page]
+  }
 
   /**
    * Create a new page
    */
 
-   createPage() {
-     let p = new Page()
-     p.setTheme(this.theme)
-     this.pages.append(p)
-   }
-
+  createPage() {
+    const page = new Page()
+    page.setTheme(this.theme)
+    this.pages.append(page)
+  }
 }
 
 

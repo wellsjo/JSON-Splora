@@ -10,8 +10,8 @@
 
 const { EventEmitter } = require('events')
 const welcomeMessage = require('./welcome-message')
-const json5 = require('json5')
 const beautify = require('js-beautify').js_beautify
+const json5 = require('json5')
 const jq = require('node-jq')
 const vm = require('vm')
 
@@ -49,7 +49,7 @@ class Editor extends EventEmitter {
       lint: true,
       foldGutter: true,
       gutters: ['CodeMirror-lint-markers', 'CodeMirror-linenumbers', 'CodeMirror-foldgutter']
-    });
+    })
 
     // Create js-beautify format options
     this.beautify_options = {
@@ -85,20 +85,20 @@ class Editor extends EventEmitter {
   handleEvents() {
 
     // Change event triggers input validation
-    this.editor.on('change', _ => {
+    this.editor.on('change', () => {
       this.validate()
     })
 
     // Paste (Cmd / Cntrl + v) triggers input validation and auto-format
     this.editor.on('inputRead', (cm, e) => {
-      if ('paste' == e.origin) {
+      if (e.origin === 'paste') {
         this.validate()
         this.format()
       }
     })
 
     // Run the filter as the user types
-    this.filter.on('keyup', _ => {
+    this.filter.on('keyup', () => {
       this.runFilter()
     })
   }
@@ -108,7 +108,7 @@ class Editor extends EventEmitter {
    */
 
   validate() {
-    let input = this.editor.getValue()
+    const input = this.editor.getValue()
     try {
       this.data = json5.parse(input)
       this.emit('input-valid')
@@ -122,8 +122,8 @@ class Editor extends EventEmitter {
    */
 
   format() {
-    if (null !== this.data) {
-      let beautified = beautify(this.editor.getValue(), this.beautify_options)
+    if (this.data !== null) {
+      const beautified = beautify(this.editor.getValue(), this.beautify_options)
       this.editor.setValue(beautified)
     }
   }
@@ -133,10 +133,18 @@ class Editor extends EventEmitter {
    */
 
   minify() {
-    if (null !== this.data) {
-      let minified = JSON.stringify(this.data)
+    if (this.data !== null) {
+      const minified = JSON.stringify(this.data)
       this.editor.setValue(minified)
     }
+  }
+
+  /**
+   * Focus cursor in the filter input
+   */
+
+  focusFilter() {
+    this.filter.focus()
   }
 
   /**
@@ -146,7 +154,7 @@ class Editor extends EventEmitter {
   runFilter() {
 
     // Set filter here so this function can be called externally
-    let filter = this.filter.val()
+    const filter = this.filter.val()
 
     // Ignore empty filters
     if (!filter || !filter.length) {
@@ -155,8 +163,8 @@ class Editor extends EventEmitter {
     }
 
     // Use the JavaScript vm to evaluate the filter with this context
-    let script = `result = x${filter}`
-    let context = {
+    const script = `result = x${filter}`
+    const context = {
       x: this.data,
       result: null
     }
@@ -177,7 +185,7 @@ class Editor extends EventEmitter {
       jq.run(filter, this.data, {
         input: 'json',
         output: 'json'
-      }).then(result => {
+      }).then((result) => {
         if (result === null) {
 
           // jq returns null for incorrect keys, but we will count them as
@@ -187,15 +195,15 @@ class Editor extends EventEmitter {
 
           // The jq filter worked
           this.emit('filter-valid', {
-            result: result,
-            type: 'jq'
+            type: 'jq',
+            result
           })
         }
-      }).catch(e => {
+      }).catch(() => {
 
         // jq filter failed
         this.emit('filter-invalid')
-      });
+      })
     }
   }
 }
