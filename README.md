@@ -10,14 +10,7 @@
 - Input is parsed as [json5](http://json5.org/)
 - Filter with [jq](https://stedolan.github.io/jq/) or JavaScript
 
-**Input**  
-The editor is a JavaScript editor, and the input is parsed as [json5](http://json5.org/). This allows for comments as well as a relaxed JSON input format.
-
-**Filters**  
-Once the editor has valid JSON, an input window will appear below, allowing you to manipulate the object with JavaScript or [jq](https://stedolan.github.io/jq/).
-
-**Output**  
-A panel will appear to the right with the output, and updates live as the input or filter changes.
+The editor is a JavaScript editor, and the input is parsed as [json5](http://json5.org/). This allows for comments as well as a relaxed JSON input format. Once the editor has valid JSON, an input window will appear below, allowing you to manipulate the object with JavaScript or [jq](https://stedolan.github.io/jq/). A panel will appear to the right with the output, and updates live as the input or filter changes.
 
 ## Install
 #### Globally
