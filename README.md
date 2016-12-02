@@ -29,15 +29,6 @@ npm run-script build-linux
 npm run-script build-win32
 ```
 
-## Build
-First install dependencies
-
-Build the application for `darwin`, `linux`, `win32` or all three platforms with one of the following commands:
-```bash
-
-```
-This will create a local directory `JSON-Splora-<system>`, which contains the application.
-
 ## Contributing
 Contributions are welcome! Progress will be slow otherwise.
 
