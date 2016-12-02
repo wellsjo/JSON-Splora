@@ -3,18 +3,7 @@
 **JSON-Splora** is a GUI for editing, visualizing, and manipulating JSON data.
 
 ![Demo](https://github.com/wellsjo/json-splora/blob/master/app/assets/demo.gif)
-## Install
-#### Global
-This will create the application as well as an alias.
-```bash
-npm i -g JSON-Splora
-jsplora
-```
-#### Local
-```
-npm install
-npm start
-```
+
 ## Design
 - Built with [Electron](http://electron.atom.io/)
 - Editor and output both use [CodeMirror](https://codemirror.net/)
@@ -30,15 +19,29 @@ Once the editor has valid JSON, an input window will appear below, allowing you 
 **Output**  
 A panel will appear to the right with the output, and updates live as the input or filter changes.
 
+## Install
+#### Globally
+This will create the application as well as the alias `jsplora`.
+```bash
+npm i -g JSON-Splora
+```
+#### Locally
+Building locally creates a directory `JSON-Splora-<system>` which contains the application.
+```
+npm install
+
+# build for darwin, linux, win32
+npm run-script build-darwin
+npm run-script build-linux
+npm run-script build-win32
+```
+
 ## Build
 First install dependencies
 
 Build the application for `darwin`, `linux`, `win32` or all three platforms with one of the following commands:
 ```bash
-npm run-script build-darwin
-npm run-script build-linux
-npm run-script build-win32
-npm run-script build
+
 ```
 This will create a local directory `JSON-Splora-<system>`, which contains the application.
 
