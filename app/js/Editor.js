@@ -44,13 +44,15 @@ class Editor extends EventEmitter {
       tabSize: 2,
       mode: {
         name: 'javascript',
-        json: false
+        json: true
       },
       lint: true,
       matchBrackets: true,
       foldGutter: true,
       gutters: ['CodeMirror-lint-markers', 'CodeMirror-linenumbers', 'CodeMirror-foldgutter']
     })
+
+    this.registerLinter()
 
     // Create js-beautify format options
     this.beautify_options = {
@@ -206,6 +208,24 @@ class Editor extends EventEmitter {
         this.emit('filter-invalid')
       })
     }
+  }
+
+  /**
+  * Register linter callback with CodeMirror. This will override the JSON linter to a JSON5 Linter using the parser.
+  */
+
+  registerLinter() {
+    CodeMirror.registerHelper("lint", "json", function(text) {
+      var found = [];
+      try { json5.parse(text); }
+      catch(e) {
+        e.message = e.message.substring(0, e.message.indexOf('.') + 1)
+        found.push({from: CodeMirror.Pos(e.lineNumber - 1, e.columnNumber - 1),
+                    to: CodeMirror.Pos(e.lineNumber -1 , e.columnNumber),
+                    message: e.message});
+      }
+      return found;
+    })
   }
 }
 

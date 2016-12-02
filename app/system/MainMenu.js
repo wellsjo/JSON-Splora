@@ -5,6 +5,7 @@ var MainMenu = {
 	/** 
 	* Create the main menu for the given app
 	*/
+
 	createMainMenu: function(app) {
 	    const {remote} = require('electron')
     	const {Menu} = remote
@@ -21,6 +22,7 @@ var MainMenu = {
 	/**
 	*  Callback for when theme button is clicked.
 	*/ 
+
 	themeClicked: function(menuItem, browserWindow, event) {
 		MainMenu.app.setTheme(menuItem.theme)
 	},
@@ -28,6 +30,7 @@ var MainMenu = {
 	/**
 	* Create the theme sub menu. (Later versions can create this programmatically)
 	*/
+	
 	createThemeSubMenu: function(){
 		
 		return [{
