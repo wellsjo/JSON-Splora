@@ -7,6 +7,7 @@
     "jsplora": "bin/jsplora"
   },
   "scripts": {
+    "validate": "node_modules/.bin/eslint app/js -c .eslintrc.json",
     "start": "ENV=development electron .",
     "build-darwin": "node_modules/.bin/electron-packager . --darwin --overwrite",
     "build-linux": "node_modules/.bin/electron-packager . --linux --overwrite",
@@ -21,7 +22,12 @@
   ],
   "author": "wellsjo",
   "devDependencies": {
-    "electron-packager": "^8.3.0"
+    "electron-packager": "^8.3.0",
+    "eslint": "^3.11.1",
+    "eslint-config-airbnb": "^13.0.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^2.2.3",
+    "eslint-plugin-react": "^6.7.1"
   },
   "dependencies": {
     "electron": "^1.4.8",
