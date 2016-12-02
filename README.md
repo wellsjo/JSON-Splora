@@ -1,6 +1,6 @@
 # JSON-Splora
 
-**JSON-Splora** is a GUI for editing, visualizing, and manipulating JSON data with [jq](https://stedolan.github.io/jq/) and JavaScript.
+**JSON-Splora** is a GUI for editing, visualizing, and manipulating JSON data with [jq](https://stedolan.github.io/jq/) or JavaScript.
 
 ![Demo](https://github.com/wellsjo/json-splora/blob/master/app/assets/demo.gif)
 
