@@ -20,8 +20,7 @@ class App {
 
   constructor() {
     this.pages = [new Page()]
-    this.current_page = 0;
-
+    this.current_page = 0
     this.theme = 'default'
   }
 
