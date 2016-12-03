@@ -24,11 +24,13 @@ class Page {
    */
 
   constructor() {
-    let editorEl = document.querySelector('.json-input')
-    let outputEl = document.querySelector('.filter-output')
-    let filterInput = $('.filter-input')
+    this.bottomWrapper = $('.bottom-wrapper')
+    this.leftPanel = $('.panel-left')
 
     // Create input/output editors
+    const editorEl = document.querySelector('.json-input')
+    const outputEl = document.querySelector('.filter-output')
+    const filterInput = $('.filter-input')
     this.editor = new Editor(editorEl, filterInput)
     this.output = new Output(outputEl)
 
@@ -49,10 +51,10 @@ class Page {
   handleEvents() {
 
     // Show the bottom bar when valid input is detected
-    this.editor.on('input-valid', _ => {
+    this.editor.on('input-valid', () => {
       if ($('.bottom-wrapper').hasClass('hidden')) {
         this.showBottomBar()
-        this.focusFilter()
+        this.editor.focusFilter()
       } else {
 
         // This enables live-updating the output as you edit the input
@@ -61,19 +63,19 @@ class Page {
     })
 
     // Show filter type on valid filter
-    this.editor.on('filter-valid', filter => {
+    this.editor.on('filter-valid', (filter) => {
       $('.filter-icon').attr('src', `app/assets/${filter.type}.svg`)
       this.output.show(filter.result)
       this.showRightPanel()
     })
 
     // Show generic filter icon when filter is invalid or empty
-    this.editor.on('filter-invalid', _ => {
+    this.editor.on('filter-invalid', () => {
       $('.filter-icon').attr('src', 'app/assets/type.png')
     })
 
     // Hide right panel when filter is empty
-    this.editor.on('filter-empty', _ => {
+    this.editor.on('filter-empty', () => {
       $('.filter-icon').attr('src', 'app/assets/type.png')
       this.hideRightPanel()
     })
@@ -84,16 +86,10 @@ class Page {
    */
 
   showBottomBar() {
-    $('.panel-left').css('height', 'calc(100% - 40px)')
-    $('.bottom-wrapper').removeClass('hidden')
-  }
+    this.bottomWrapper.removeClass('hidden')
 
-  /**
-   * Focus cursor on the filter input
-   */
-
-  focusFilter() {
-    $('.filter-input').focus()
+    // Makes room for the bottom bar (fixes bug where you can't scroll to bottom)
+    this.leftPanel.css('height', 'calc(100% - 40px)')
   }
 
   /**
@@ -101,7 +97,7 @@ class Page {
    */
 
   showRightPanel() {
-    $('.panel-left').css('width', '50%')
+    this.leftPanel.css('width', '50%')
   }
 
   /**
@@ -109,7 +105,7 @@ class Page {
    */
 
   hideRightPanel() {
-    $('.panel-left').css('width', '100%')
+    this.leftPanel.css('width', '100%')
   }
 
   /**
@@ -121,7 +117,6 @@ class Page {
     this.output.setTheme(theme)
   }
 }
-
 
 /**
  * Exports
