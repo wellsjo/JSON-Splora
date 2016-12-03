@@ -94,6 +94,7 @@ class Editor extends EventEmitter {
     // Paste (Cmd / Cntrl + v) triggers input validation and auto-format
     this.editor.on('inputRead', (cm, e) => {
       if (e.origin === 'paste') {
+
         // if pasted text looks like url try to download it
         if (utils.testUrl(this.editor.getValue())) {
           utils.testUrlJson(this.editor.getValue(), (data) => {
@@ -101,6 +102,7 @@ class Editor extends EventEmitter {
             this.validate()
             this.format()
           }, () => {
+
             // failed to download json
           })
         }

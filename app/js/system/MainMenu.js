@@ -119,10 +119,10 @@ class MainMenu {
         }, {
           role: 'unhide'
         }, {
-            type: 'separator'
-          }, {
-            role: 'quit'
-          }]
+          type: 'separator'
+        }, {
+          role: 'quit'
+        }]
       })
 
         // Edit menu.
