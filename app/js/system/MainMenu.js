@@ -102,39 +102,41 @@ class MainMenu {
     }]
     if (process.platform === 'darwin') {
       template.unshift({
-          label: 'JSON-Splora',
-          submenu: [{
-            role: 'about'
-          }, {
-            type: 'separator'
-          }, {
-            role: 'services',
-            submenu: []
-          }, {
-            type: 'separator'
-          }, {
-            role: 'hide'
-          }, {
-            role: 'hideothers'
-          }, {
-            role: 'unhide'
-          }, {
+        label: 'JSON-Splora',
+        submenu: [{
+          role: 'about'
+        }, {
+          type: 'separator'
+        }, {
+          role: 'services',
+          submenu: []
+        }, {
+          type: 'separator'
+        }, {
+          role: 'hide'
+        }, {
+          role: 'hideothers'
+        }, {
+          role: 'unhide'
+        }, {
             type: 'separator'
           }, {
             role: 'quit'
           }]
-        })
+      })
+
         // Edit menu.
       template[1].submenu.push({
-          type: 'separator'
+        type: 'separator'
+      }, {
+        label: 'Speech',
+        submenu: [{
+          role: 'startspeaking'
         }, {
-          label: 'Speech',
-          submenu: [{
-            role: 'startspeaking'
-          }, {
-            role: 'stopspeaking'
-          }]
-        })
+          role: 'stopspeaking'
+        }]
+      })
+
         // Window menu.
       template[3].submenu = [{
         label: 'Close',
