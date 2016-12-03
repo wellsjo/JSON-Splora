@@ -94,16 +94,16 @@ class Editor extends EventEmitter {
     this.formatOnNextChange = false
 
     // Change event triggers input validation
-    this.editor.on('change', () => { console.log('change')
+    this.editor.on('change', () => {
       this.validate()
-      if(this.formatOnNextChange) {
+      if (this.formatOnNextChange) {
         this.format()
-        this.formatOnNextChange = false;
+        this.formatOnNextChange = false
       }
     })
 
     // Paste (Cmd / Cntrl + v) triggers input validation and auto-format
-    this.editor.on('inputRead', (cm, e) => { console.log('inputRead')
+    this.editor.on('inputRead', (cm, e) => {
       if (e.origin === 'paste') {
         const pasted = e.text[0]
 
@@ -125,7 +125,7 @@ class Editor extends EventEmitter {
     })
 
     // File drop event (editor's value has not been changed yet)
-    this.editor.on('drop', (cm) => { console.log('drop')
+    this.editor.on('drop', () => {
       this.formatOnNextChange = true
     })
 
