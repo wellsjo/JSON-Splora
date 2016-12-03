@@ -1,75 +1,80 @@
 'use strict'
 
-var MainMenu = {
+/**
+ * Dependencies
+ */
 
-	/** 
-	* Create the main menu for the given app
-	*/
+const { remote } = require('electron')
+const { Menu } = remote
+const menuTemplate = require('./menuTemplate')
 
-	createMainMenu: function(app) {
-	    const {remote} = require('electron')
-    	const {Menu} = remote
-		const menuTemplate = require('./menuTemplate')
-		MainMenu.app = app
+class MainMenu {
 
-		// Add theme sub menu
-		menuTemplate[2].submenu[7].submenu = MainMenu.createThemeSubMenu()
+  /**
+   * Create the main menu for the given app
+   */
 
-		// Finally, build menu
-		Menu.setApplicationMenu(Menu.buildFromTemplate(menuTemplate))
-	},
+  constructor(app) {
+    this.app = app
 
-	/**
-	*  Callback for when theme button is clicked.
-	*/ 
+    // Add theme sub menu
+    menuTemplate[2].submenu[7].submenu = this.createThemeSubMenu()
 
-	themeClicked: function(menuItem, browserWindow, event) {
-		MainMenu.app.setTheme(menuItem.theme)
-	},
+    // Finally, build menu
+    Menu.setApplicationMenu(Menu.buildFromTemplate(menuTemplate))
+  }
 
-	/**
-	* Create the theme sub menu. (Later versions can create this programmatically)
-	*/
-	
-	createThemeSubMenu: function(){
-		
-		return [{
-	      label: 'Default',
-	      theme: 'default',
-	      type: 'radio',
-	      click(menuItem, browserWindow, event) {
-	        MainMenu.themeClicked(menuItem, browserWindow, event)
-	      }
-	    }, {
-	      label: 'Elegant',
-	      theme: 'Elegant',
-	      type: 'radio',
-	      click(menuItem, browserWindow, event) {
-	        MainMenu.themeClicked(menuItem, browserWindow, event)
-	      }
-	    }, {
-	      label: 'Mdn-Like',
-	      theme: 'mdn-like',
-	      type: 'radio',
-	      click(menuItem, browserWindow, event) {
-	        MainMenu.themeClicked(menuItem, browserWindow, event)
-	      }
-	    }, {
-	      label: 'Neat',
-	      theme: 'neat',
-	      type: 'radio',
-	      click(menuItem, browserWindow, event) {
-	        MainMenu.themeClicked(menuItem, browserWindow, event)
-	      }
-	    }, {
-	      label: 'Neo',
-	      theme: 'neo',
-	      type: 'radio',
-	      click(menuItem, browserWindow, event) {
-	        MainMenu.themeClicked(menuItem, browserWindow, event)
-	      }
-	    }]
-	}
+  /**
+   *  Callback for when theme button is clicked.
+   */
+
+  themeClicked(menuItem, browserWindow, event) {
+    this.app.setTheme(menuItem.theme)
+  }
+
+  /**
+   * Create the theme sub menu. (Later versions can create this programmatically)
+   */
+
+  createThemeSubMenu() {
+
+    return [{
+      label: 'Default',
+      theme: 'default',
+      type: 'radio',
+      click(menuItem, browserWindow, event) {
+        this.themeClicked(menuItem, browserWindow, event)
+      }
+    }, {
+      label: 'Elegant',
+      theme: 'Elegant',
+      type: 'radio',
+      click(menuItem, browserWindow, event) {
+        this.themeClicked(menuItem, browserWindow, event)
+      }
+    }, {
+      label: 'Mdn-Like',
+      theme: 'mdn-like',
+      type: 'radio',
+      click(menuItem, browserWindow, event) {
+        this.themeClicked(menuItem, browserWindow, event)
+      }
+    }, {
+      label: 'Neat',
+      theme: 'neat',
+      type: 'radio',
+      click(menuItem, browserWindow, event) {
+        this.themeClicked(menuItem, browserWindow, event)
+      }
+    }, {
+      label: 'Neo',
+      theme: 'neo',
+      type: 'radio',
+      click(menuItem, browserWindow, event) {
+        this.themeClicked(menuItem, browserWindow, event)
+      }
+    }]
+  }
 }
 
 
