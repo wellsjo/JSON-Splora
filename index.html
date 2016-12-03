@@ -80,13 +80,10 @@
 
   <!-- Entrypoint -->
   <script>
-    // Create global app object
-    const App = require('./app/js/App')
-    const APP = new App()
-
-    // Create main menu
     const MainMenu = require('./app/system/MainMenu')
-    MainMenu.createMainMenu(APP)
+    const App = require('./app/js/App')
+    const app = new App()
+    const menu = new MainMenu(app)
   </script>
 </body>
 
