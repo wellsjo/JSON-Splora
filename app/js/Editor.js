@@ -10,11 +10,12 @@
 
 const { EventEmitter } = require('events')
 const welcomeMessage = require('./system/welcome-message')
+const superagent = require('superagent')
 const beautify = require('js-beautify').js_beautify
 const json5 = require('json5')
+const isUrl = require('is-url')
 const jq = require('node-jq')
 const vm = require('vm')
-const utils = require('./utils')
 
 /**
  * Wrapper class for json editor
@@ -95,19 +96,21 @@ class Editor extends EventEmitter {
     this.editor.on('inputRead', (cm, e) => {
       if (e.origin === 'paste') {
 
-        // if pasted text looks like url try to download it
-        if (utils.testUrl(this.editor.getValue())) {
-          utils.testUrlJson(this.editor.getValue(), (data) => {
-            this.editor.setValue(data)
-            this.validate()
-            this.format()
-          }, () => {
-
-            // failed to download json
+        // If pasted text looks like url, try to download it
+        if (isUrl(e.text[0])) {
+          superagent.get(e.text[0]).end((err, res) => {
+            if (!err && res.body) {
+              this.editor.setValue(JSON.stringify(res.body))
+              this.validate()
+              this.format()
+            }
           })
+        } else {
+
+          // Validate and format the input
+          this.validate()
+          this.format()
         }
-        this.validate()
-        this.format()
       }
     })
 
