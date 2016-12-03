@@ -1,5 +1,7 @@
 'use strict'
 
+const json5 = require('json5')
+
 /**
  * Register linter callback with CodeMirror. This will override the JSON
  * linter to a JSON5 Linter using the parser.

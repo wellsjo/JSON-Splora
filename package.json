@@ -48,7 +48,6 @@
     "superagent": "^3.1.0"
   },
   "pre-commit": [
-    "lint",
     "validate"
   ]
 }
