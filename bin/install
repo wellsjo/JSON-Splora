@@ -1,0 +1,7 @@
+#!/usr/bin/env node
+
+const validate = require('git-validate')
+validate.copy('../eslintrc.json', '.eslintrc.json')
+validate.installScript('lint', 'node_modules/.bin/eslint -c .eslintrc.json --fix index.js app/js')
+validate.installScript('validate', 'node_modules/.bin/eslint -c .eslintrc.json index.js app/js')
+validate.configureHook('pre-commit', ['lint', 'validate'])

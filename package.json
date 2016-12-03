@@ -7,13 +7,14 @@
     "jsplora": "bin/jsplora"
   },
   "scripts": {
-    "lint": "node_modules/.bin/eslint -c .eslintrc.json --fix index.js app/js",
-    "validate": "node_modules/.bin/eslint -c .eslintrc.json index.js app/js",
+    "install": "node bin/install",
     "start": "electron .",
     "start-dev": "ENV=development electron .",
     "build-darwin": "node_modules/.bin/electron-packager . --darwin --overwrite",
     "build-linux": "node_modules/.bin/electron-packager . --linux --overwrite",
-    "build-win32": "node_modules/.bin/electron-packager . --win32 --overwrite"
+    "build-win32": "node_modules/.bin/electron-packager . --win32 --overwrite",
+    "lint": "node_modules/.bin/eslint -c .eslintrc.json --fix index.js app/js",
+    "validate": "node_modules/.bin/eslint -c .eslintrc.json index.js app/js"
   },
   "keywords": [
     "Electron",
@@ -30,7 +31,7 @@
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^2.2.3",
     "eslint-plugin-react": "^6.7.1",
-    "precommit-hook": "^3.0.0"
+    "git-validate": "^2.2.2"
   },
   "dependencies": {
     "codemirror": "^5.20.2",
