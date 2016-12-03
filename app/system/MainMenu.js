@@ -37,40 +37,39 @@ class MainMenu {
    */
 
   createThemeSubMenu() {
-
     return [{
       label: 'Default',
       theme: 'default',
       type: 'radio',
-      click(menuItem, browserWindow, event) {
+      click: (menuItem, browserWindow, event) => {
         this.themeClicked(menuItem, browserWindow, event)
       }
     }, {
       label: 'Elegant',
       theme: 'Elegant',
       type: 'radio',
-      click(menuItem, browserWindow, event) {
+      click: (menuItem, browserWindow, event) => {
         this.themeClicked(menuItem, browserWindow, event)
       }
     }, {
       label: 'Mdn-Like',
       theme: 'mdn-like',
       type: 'radio',
-      click(menuItem, browserWindow, event) {
+      click: (menuItem, browserWindow, event) => {
         this.themeClicked(menuItem, browserWindow, event)
       }
     }, {
       label: 'Neat',
       theme: 'neat',
       type: 'radio',
-      click(menuItem, browserWindow, event) {
-        this.themeClicked(menuItem, browserWindow, event)
+      click: (menuItem, browserWindow, event) => {
+        self.themeClicked(menuItem, browserWindow, event)
       }
     }, {
       label: 'Neo',
       theme: 'neo',
       type: 'radio',
-      click(menuItem, browserWindow, event) {
+      click: (menuItem, browserWindow, event) => {
         this.themeClicked(menuItem, browserWindow, event)
       }
     }]
