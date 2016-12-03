@@ -12,7 +12,7 @@
   <!-- JSON Lint dependency for CodeMirror linter -->
   <script src="node_modules/jsonlint/lib/jsonlint.js" type="text/javascript"></script>
 
-  <!-- Enable CodeMirror's JavaScript mode, and JSON linter -->
+  <!-- Enable CodeMirror's JavaScript mode, and JSON linter, and other addons -->
   <script src="node_modules/codemirror/addon/lint/lint.js" type="text/javascript"></script>
   <script src="node_modules/codemirror/addon/lint/json-lint.js" type="text/javascript"></script>
   <script src="node_modules/codemirror/addon/fold/foldcode.js" type="text/javascript"></script>
@@ -21,6 +21,7 @@
   <script src="node_modules/codemirror/addon/fold/comment-fold.js" type="text/javascript"></script>
   <script src="node_modules/codemirror/addon/fold/indent-fold.js" type="text/javascript"></script>
   <script src="node_modules/codemirror/mode/javascript/javascript.js" type="text/javascript"></script>
+  <script src="node_modules/codemirror/addon/edit/matchbrackets.js" type="text/javascript"></script>
 
   <!-- jQuery, jQuery UI -->
   <script type="text/javascript">
@@ -79,16 +80,10 @@
 
   <!-- Entrypoint -->
   <script>
-
-    // Create global app object
+    const MainMenu = require('./app/system/MainMenu')
     const App = require('./app/js/App')
-    const APP = new App()
-
-    // Create main menu (requires `APP` to be instantiated)
-    const {remote} = require('electron')
-    const {Menu} = remote
-    const menuTemplate = require('./app/system/menu')
-    Menu.setApplicationMenu(Menu.buildFromTemplate(menuTemplate))
+    const app = new App()
+    const menu = new MainMenu(app)
   </script>
 </body>
 
