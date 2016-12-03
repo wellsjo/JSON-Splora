@@ -18,9 +18,6 @@ class MainMenu {
     this.app = app
     const template = this.createTemplate()
 
-    // Add theme sub menu
-    template[1].submenu[7].submenu = this.createThemeSubMenu()
-
     // Finally, build menu
     Menu.setApplicationMenu(Menu.buildFromTemplate(template))
   }
@@ -81,7 +78,7 @@ class MainMenu {
         type: 'separator'
       }, {
         label: 'Theme',
-        submenu: []
+        submenu: this.createThemeSubMenu()
       }, {
         type: 'separator'
       }, {
