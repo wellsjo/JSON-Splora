@@ -4,7 +4,7 @@
     "sourceType": "script"
   },
   "rules": {
-    "lines-around-comment": ["warn", {
+    "lines-around-comment": ["error", {
       "beforeLineComment": true,
       "afterLineComment": false,
       "beforeBlockComment": true,

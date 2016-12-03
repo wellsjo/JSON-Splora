@@ -7,8 +7,8 @@
     "jsplora": "bin/jsplora"
   },
   "scripts": {
-    "lint": "node_modules/.bin/eslint index.js app/js -c .eslintrc.json --fix",
-    "validate": "node_modules/.bin/eslint index.js app/js -c .eslintrc.json",
+    "lint": "node_modules/.bin/eslint -c .eslintrc.json --fix index.js app/js",
+    "validate": "node_modules/.bin/eslint -c .eslintrc.json index.js app/js",
     "start": "electron .",
     "start-dev": "ENV=development electron .",
     "build-darwin": "node_modules/.bin/electron-packager . --darwin --overwrite",
@@ -29,11 +29,12 @@
     "eslint-config-airbnb": "^13.0.0",
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^2.2.3",
-    "eslint-plugin-react": "^6.7.1"
+    "eslint-plugin-react": "^6.7.1",
+    "precommit-hook": "^3.0.0"
   },
   "dependencies": {
-    "electron": "^1.4.8",
     "codemirror": "^5.20.2",
+    "electron": "^1.4.8",
     "electron-context-menu": "^0.8.0",
     "electron-default-menu": "^1.0.0",
     "jquery": "^3.1.1",
@@ -42,5 +43,9 @@
     "jsonlint": "^1.6.2",
     "menu": "^0.2.5",
     "node-jq": "^0.4.0"
-  }
+  },
+  "pre-commit": [
+    "lint",
+    "validate"
+  ]
 }
