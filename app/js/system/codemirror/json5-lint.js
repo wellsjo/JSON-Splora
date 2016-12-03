@@ -5,7 +5,7 @@
  * linter to a JSON5 Linter using the parser.
  */
 
-CodeMirror.registerHelper("lint", "json", (text) => {
+CodeMirror.registerHelper('lint', 'json', (text) => {
   const found = []
   try {
     json5.parse(text)
