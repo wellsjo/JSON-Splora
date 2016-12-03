@@ -8,7 +8,6 @@
  * Dependencies
  */
 
-const json5 = require('json5')
 const http = require('http')
 const https = require('https')
 
@@ -33,9 +32,10 @@ function testContentType(text) {
  */
 
 function testUrlJson(url, callback, callbackFail) {
-  
-  let handle = function(res) {
-    res.setEncoding('utf8');
+
+  const handle = (res) => {
+    let data = ''
+    res.setEncoding('utf8')
 
     // test contentType to avoid downloading huge files by mistake
     if (res.statusCode !== 200 || !testContentType(res.headers['content-type'])) {
@@ -46,29 +46,30 @@ function testUrlJson(url, callback, callbackFail) {
       return
     }
 
-    var data = '';
-    res.on('data', (chunk) => data += chunk);
+    res.on('data', (chunk) => {
+      data += chunk
+    })
 
-    res.on('end', function() {
+    res.on('end', () => {
       try {
-        callback(data);
+        callback(data)
       } catch (e) {
-        callbackFail();
+        callbackFail()
       }
-    });
+    })
   }
-  
+
   // protocol detection
   try {
     if (/^https/.test(url)) {
-      https.get(url, handle).on('error', (e) => callbackFail());
+      https.get(url, handle).on('error', () => callbackFail())
     } else if (/^http/.test(url)) {
-      http.get(url, handle).on('error', (e) => callbackFail());
+      http.get(url, handle).on('error', () => callbackFail())
     } else {
-      callbackFail();
+      callbackFail()
     }
   } catch (e) {
-    callbackFail();
+    callbackFail()
   }
 }
 
