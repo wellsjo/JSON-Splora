@@ -8,7 +8,8 @@
   },
   "scripts": {
     "validate": "node_modules/.bin/eslint index.js app/js -c .eslintrc.json",
-    "start": "ENV=development electron .",
+    "start": "electron .",
+    "start-dev": "ENV=development electron .",
     "build-darwin": "node_modules/.bin/electron-packager . --darwin --overwrite",
     "build-linux": "node_modules/.bin/electron-packager . --linux --overwrite",
     "build-win32": "node_modules/.bin/electron-packager . --win32 --overwrite"
