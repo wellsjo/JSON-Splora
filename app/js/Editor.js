@@ -95,10 +95,11 @@ class Editor extends EventEmitter {
     // Paste (Cmd / Cntrl + v) triggers input validation and auto-format
     this.editor.on('inputRead', (cm, e) => {
       if (e.origin === 'paste') {
+        const pasted = e.text[0]
 
         // If pasted text looks like url, try to download it
-        if (isUrl(e.text[0])) {
-          superagent.get(e.text[0]).end((err, res) => {
+        if (isUrl(pasted)) {
+          superagent.get(pasted).end((err, res) => {
             if (!err && res.body) {
               this.editor.setValue(JSON.stringify(res.body))
               this.validate()
@@ -188,7 +189,7 @@ class Editor extends EventEmitter {
 
     try {
       new vm.Script(script).runInNewContext(context)
-      if (context.result) {
+      if (typeof context.result !== 'undefined') {
         this.emit('filter-valid', {
           result: context.result,
           type: 'js'
