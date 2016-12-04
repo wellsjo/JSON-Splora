@@ -14,8 +14,10 @@ const superagent = require('superagent')
 const beautify = require('js-beautify').js_beautify
 const json5 = require('json5')
 const isUrl = require('is-url')
+const path = require('path')
 const jq = require('node-jq')
 const vm = require('vm')
+const fs = require('fs')
 
 /**
  * Editor options
@@ -65,6 +67,9 @@ class Editor extends EventEmitter {
     // Create CodeMirror input and filter elements
     this.editor = CodeMirror.fromTextArea(el, defaultEditorOptions)
     this.filter = filter
+
+    // Path to store data file so it can be read for jq (required for large input)
+    this.tmp = path.resolve(__dirname, '..', 'tmp', 'data.json')
 
     // Set js-beautify format options
     this.formatOptions = defaultFormatOptions
@@ -206,10 +211,11 @@ class Editor extends EventEmitter {
         this.emit('filter-invalid')
       }
     } catch (e) {
+      fs.writeFileSync(this.tmp, JSON.stringify(this.data))
 
       // If JavaScript filter fails, run through jq
-      jq.run(filter, this.data, {
-        input: 'json',
+      jq.run(filter, this.tmp, {
+        input: 'file',
         output: 'json'
       }).then((result) => {
         if (result === null) {
