@@ -15,10 +15,11 @@ The editor is a JavaScript editor, and the input is parsed as [json5](http://jso
 #### Input
 - URLs resolve to any JSON they return
 - Drag-and-drop or open any file
-- Text editor
+- Plain text input
 
 #### Filters
-The filter is first evaluated as JavaScript with `output = x${filter}`, then it is parsed with [jq](https://stedolan.github.io/jq/). This allows you to use native powerful JavaScript methods like `.map()` alongside jq's powerful filtering library.
+- First evaluated as JavaScript with `output = x${filter}` 
+- If JS fails, it attempts to use [jq](https://stedolan.github.io/jq/)
 
 ## Install
 #### Globally
