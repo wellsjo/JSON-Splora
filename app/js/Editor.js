@@ -91,10 +91,15 @@ class Editor extends EventEmitter {
    */
 
   handleEvents() {
+    this.formatOnNextChange = false
 
     // Change event triggers input validation
     this.editor.on('change', () => {
       this.validate()
+      if (this.formatOnNextChange) {
+        this.format()
+        this.formatOnNextChange = false
+      }
     })
 
     // Paste (Cmd / Cntrl + v) triggers input validation and auto-format
@@ -106,9 +111,8 @@ class Editor extends EventEmitter {
         if (isUrl(pasted)) {
           superagent.get(pasted).end((err, res) => {
             if (!err && res.body) {
+              this.formatOnNextChange = true
               this.editor.setValue(JSON.stringify(res.body))
-              this.validate()
-              this.format()
             }
           })
         } else {
@@ -118,6 +122,11 @@ class Editor extends EventEmitter {
           this.format()
         }
       }
+    })
+
+    // File drop event (editor's value has not been changed yet)
+    this.editor.on('drop', () => {
+      this.formatOnNextChange = true
     })
 
     // Run the filter as the user types

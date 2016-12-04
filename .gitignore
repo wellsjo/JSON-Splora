@@ -1,6 +1,18 @@
+# dependencies
 node_modules
+
+# builds
 JSON-Splora-darwin-x64
 JSON-Splora-linux-ia32
 JSON-Splora-win32-x64
+
+# test
 .eslintrc.json
+
+# debug
+npm-debug.log
+
+# caches and tmps
+.npm
+.eslintcache
 app/tmp

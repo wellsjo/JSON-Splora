@@ -3,6 +3,12 @@
   "version": "0.0.4",
   "description": "GUI for editing, visualizing, and manipulating JSON data",
   "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wellsjo/JSON-Splora.git"
+  },
+  "license": "MIT",
+  "bugs": "https://github.com/wellsjo/JSON-Splora/issues",
   "bin": {
     "jsplora": "bin/jsplora"
   },
