@@ -18,6 +18,35 @@ const jq = require('node-jq')
 const vm = require('vm')
 
 /**
+ * Editor options
+ */
+
+const defaultEditorOptions = {
+  lineNumbers: true,
+  smartIndent: true,
+  autofocus: true,
+  extraKeys: {
+    Tab: false
+  },
+  indentUnit: 2,
+  tabSize: 2,
+  mode: {
+    name: 'javascript',
+    json: true
+  },
+  lint: true,
+  matchBrackets: true,
+  foldGutter: true,
+  gutters: ['CodeMirror-lint-markers', 'CodeMirror-linenumbers', 'CodeMirror-foldgutter']
+}
+
+const defaultFormatOptions = {
+  indent_size: 2,
+  indent_char: ' ',
+  preserve_newlines: false
+}
+
+/**
  * Wrapper class for json editor
  */
 
@@ -32,34 +61,13 @@ class Editor extends EventEmitter {
 
   constructor(el, filter) {
     super()
+
+    // Create CodeMirror input and filter elements
+    this.editor = CodeMirror.fromTextArea(el, defaultEditorOptions)
     this.filter = filter
 
-    // Create CodeMirror element
-    this.editor = CodeMirror.fromTextArea(el, {
-      lineNumbers: true,
-      smartIndent: true,
-      autofocus: true,
-      extraKeys: {
-        Tab: false
-      },
-      indentUnit: 2,
-      tabSize: 2,
-      mode: {
-        name: 'javascript',
-        json: true
-      },
-      lint: true,
-      matchBrackets: true,
-      foldGutter: true,
-      gutters: ['CodeMirror-lint-markers', 'CodeMirror-linenumbers', 'CodeMirror-foldgutter']
-    })
-
-    // Create js-beautify format options
-    this.beautify_options = {
-      indent_size: 2,
-      indent_char: ' ',
-      preserve_newlines: false
-    }
+    // Set js-beautify format options
+    this.formatOptions = defaultFormatOptions
 
     // Welcome message
     this.editor.setValue(welcomeMessage)
@@ -71,14 +79,6 @@ class Editor extends EventEmitter {
 
     // Handle functions that respond to input
     this.handleEvents()
-  }
-
-  /**
-   * Set the theme dynamically
-   */
-
-  setTheme(theme) {
-    this.editor.setOption('theme', theme)
   }
 
   /**
@@ -136,12 +136,20 @@ class Editor extends EventEmitter {
   }
 
   /**
+   * Set the theme dynamically
+   */
+
+  setTheme(theme) {
+    this.editor.setOption('theme', theme)
+  }
+
+  /**
    * Formats the code in the editor
    */
 
   format() {
     if (this.data !== null) {
-      const beautified = beautify(this.editor.getValue(), this.beautify_options)
+      const beautified = beautify(this.editor.getValue(), this.formatOptions)
       this.editor.setValue(beautified)
     }
   }
