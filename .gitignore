@@ -3,3 +3,4 @@ JSON-Splora-darwin-x64
 JSON-Splora-linux-ia32
 JSON-Splora-win32-x64
 .eslintrc.json
+app/tmp

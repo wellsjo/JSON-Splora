@@ -4,6 +4,8 @@
  * Dependencies
  */
 
+const mkdirp = require('mkdirp')
+const path = require('path')
 const Page = require('./Page')
 
 /**
@@ -19,6 +21,7 @@ class App {
    */
 
   constructor() {
+    mkdirp(path.resolve(__dirname, '..', 'tmp'))
     this.pages = [new Page()]
     this.current_page = 0
     this.theme = 'default'
