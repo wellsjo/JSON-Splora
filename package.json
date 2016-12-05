@@ -36,8 +36,7 @@
     "eslint-config-airbnb": "^13.0.0",
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^2.2.3",
-    "eslint-plugin-react": "^6.7.1",
-    "git-validate": "^2.2.2"
+    "eslint-plugin-react": "^6.7.1"
   },
   "dependencies": {
     "codemirror": "^5.20.2",
@@ -52,7 +51,8 @@
     "menu": "^0.2.5",
     "mkdirp": "^0.5.1",
     "node-jq": "^0.4.0",
-    "superagent": "^3.1.0"
+    "superagent": "^3.1.0",
+    "git-validate": "^2.2.2"
   },
   "pre-commit": [
     "validate"
