@@ -4,9 +4,11 @@
  * Dependencies
  */
 
+const fs = require('fs')
+
 const { remote } = require('electron')
 
-const { Menu } = remote
+const { Menu, BrowserWindow, dialog } = remote
 
 class MainMenu {
 
@@ -32,6 +34,20 @@ class MainMenu {
 
   createTemplate() {
     const template = [{
+      label: 'File',
+      submenu: [{
+        label: 'Open JSON file...',
+        accelerator: 'CommandOrControl+O',
+        click: () => {
+          dialog.showOpenDialog(
+            BrowserWindow.getFocusedWindow()||BrowserWindow.getAllWindows()[0],
+            {filters:[{name: 'JSON Files', extensions: ['json']}, {name: 'All Files', extensions: ['*']}]},
+            filePaths => { 
+              window.app=this.app
+              this.app.getCurrentPage().editor.editor.setValue(fs.readFileSync(filePaths[0], 'utf8')) }
+          )
+        }
+      }]},{
       label: 'Edit',
       submenu: [{
         role: 'undo'
@@ -126,7 +142,7 @@ class MainMenu {
       })
 
         // Edit menu.
-      template[1].submenu.push({
+      template[2].submenu.push({
         type: 'separator'
       }, {
         label: 'Speech',
@@ -138,7 +154,7 @@ class MainMenu {
       })
 
         // Window menu.
-      template[3].submenu = [{
+      template[4].submenu = [{
         label: 'Close',
         accelerator: 'CmdOrCtrl+W',
         role: 'close'
