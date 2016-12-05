@@ -67,11 +67,13 @@ class MainMenu {
         type: 'separator'
       }, {
         label: 'Format',
+        accelerator: 'CommandOrControl+Shift+F',
         click: () => {
           this.app.getCurrentPage().editor.format()
         }
       }, {
         label: 'Minify',
+        accelerator: 'CommandOrControl+Shift+M',
         click: () => {
           this.app.getCurrentPage().editor.minify()
         }
