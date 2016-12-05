@@ -2,7 +2,7 @@
 
 **JSON-Splora** is a GUI for editing, visualizing, and manipulating JSON data with [jq](https://stedolan.github.io/jq/) or JavaScript.
 
-![Demo]([Imgur](http://i.imgur.com/CiXIrrg.gifv))
+![Demo](http://i.imgur.com/CiXIrrg.gif)
 
 ## Design
 - Built with [Electron](http://electron.atom.io/)
