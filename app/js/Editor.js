@@ -45,7 +45,8 @@ const defaultEditorOptions = {
 const defaultFormatOptions = {
   indent_size: 2,
   indent_char: ' ',
-  preserve_newlines: false
+  preserve_newlines: false,
+  brace_style: 'expand',
 }
 
 /**
