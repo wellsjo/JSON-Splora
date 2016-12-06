@@ -1,4 +1,11 @@
 
+0.0.6 / 2016-12-05
+==================
+
+- Add accelerators for the Format and Minify menu options
+- Add file open option and accelerator to Menu Bar
+- Change brace-style to expand, for better code-folding on arrays of objects
+
 0.0.5 / 2016-12-04
 ==================
 

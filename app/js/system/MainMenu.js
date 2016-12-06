@@ -40,84 +40,85 @@ class MainMenu {
         accelerator: 'CommandOrControl+O',
         click: () => {
           dialog.showOpenDialog(
-            BrowserWindow.getFocusedWindow()||BrowserWindow.getAllWindows()[0],
-            {filters:[{name: 'JSON Files', extensions: ['json']}, {name: 'All Files', extensions: ['*']}]},
-            filePaths => { 
-              window.app=this.app
-              this.app.getCurrentPage().editor.editor.setValue(fs.readFileSync(filePaths[0], 'utf8')) }
+            BrowserWindow.getFocusedWindow() || BrowserWindow.getAllWindows()[0],
+            { filters: [{ name: 'JSON Files', extensions: ['json'] }, { name: 'All Files', extensions: ['*'] }] },
+            (filePaths) => {
+              window.app = this.app
+              this.app.getCurrentPage().editor.editor.setValue(fs.readFileSync(filePaths[0], 'utf8'))
+            }
           )
         }
-      }]},{
-      label: 'Edit',
-      submenu: [{
-        role: 'undo'
+      }] }, {
+        label: 'Edit',
+        submenu: [{
+          role: 'undo'
+        }, {
+          role: 'redo'
+        }, {
+          type: 'separator'
+        }, {
+          role: 'cut'
+        }, {
+          role: 'copy'
+        }, {
+          role: 'paste'
+        }, {
+          role: 'selectall'
+        }, {
+          type: 'separator'
+        }, {
+          label: 'Format',
+          accelerator: 'CommandOrControl+Shift+F',
+          click: () => {
+            this.app.getCurrentPage().editor.format()
+          }
+        }, {
+          label: 'Minify',
+          accelerator: 'CommandOrControl+Shift+M',
+          click: () => {
+            this.app.getCurrentPage().editor.minify()
+          }
+        }]
       }, {
-        role: 'redo'
+        label: 'View',
+        submenu: [{
+          role: 'reload'
+        }, {
+          role: 'toggledevtools'
+        }, {
+          type: 'separator'
+        }, {
+          role: 'resetzoom'
+        }, {
+          role: 'zoomin'
+        }, {
+          role: 'zoomout'
+        }, {
+          type: 'separator'
+        }, {
+          label: 'Theme',
+          submenu: this.createThemeSubMenu()
+        }, {
+          type: 'separator'
+        }, {
+          role: 'togglefullscreen'
+        }]
       }, {
-        type: 'separator'
+        role: 'window',
+        submenu: [{
+          role: 'minimize'
+        }, {
+          role: 'close'
+        }]
       }, {
-        role: 'cut'
-      }, {
-        role: 'copy'
-      }, {
-        role: 'paste'
-      }, {
-        role: 'selectall'
-      }, {
-        type: 'separator'
-      }, {
-        label: 'Format',
-        accelerator: 'CommandOrControl+Shift+F',
-        click: () => {
-          this.app.getCurrentPage().editor.format()
-        }
-      }, {
-        label: 'Minify',
-        accelerator: 'CommandOrControl+Shift+M',
-        click: () => {
-          this.app.getCurrentPage().editor.minify()
-        }
+        role: 'help',
+        submenu: [{
+          label: 'Learn More',
+          click: () => {
+            electron.shell.openExternal('http://electron.atom.io')
+          }
+        }]
       }]
-    }, {
-      label: 'View',
-      submenu: [{
-        role: 'reload'
-      }, {
-        role: 'toggledevtools'
-      }, {
-        type: 'separator'
-      }, {
-        role: 'resetzoom'
-      }, {
-        role: 'zoomin'
-      }, {
-        role: 'zoomout'
-      }, {
-        type: 'separator'
-      }, {
-        label: 'Theme',
-        submenu: this.createThemeSubMenu()
-      }, {
-        type: 'separator'
-      }, {
-        role: 'togglefullscreen'
-      }]
-    }, {
-      role: 'window',
-      submenu: [{
-        role: 'minimize'
-      }, {
-        role: 'close'
-      }]
-    }, {
-      role: 'help',
-      submenu: [{
-        label: 'Learn More',
-        click: () => {
-          electron.shell.openExternal('http://electron.atom.io')
-        }
-      }]
-    }]
     if (process.platform === 'darwin') {
       template.unshift({
         label: 'JSON-Splora',
@@ -143,7 +144,7 @@ class MainMenu {
         }]
       })
 
-        // Edit menu.
+      // Edit menu.
       template[2].submenu.push({
         type: 'separator'
       }, {
@@ -155,7 +156,7 @@ class MainMenu {
         }]
       })
 
-        // Window menu.
+      // Window menu.
       template[4].submenu = [{
         label: 'Close',
         accelerator: 'CmdOrCtrl+W',
