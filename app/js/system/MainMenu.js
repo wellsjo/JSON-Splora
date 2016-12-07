@@ -29,6 +29,7 @@ class MainMenu {
    */
 
   themeClicked(menuItem) {
+    settings.set('theme', menuItem.theme)
     this.app.setTheme(menuItem.theme)
   }
 
@@ -184,42 +185,34 @@ class MainMenu {
    */
 
   createThemeSubMenu() {
-    return [{
+    const themes = [{
       label: 'Default',
-      theme: 'default',
-      type: 'radio',
-      click: (menuItem) => {
-        this.themeClicked(menuItem)
-      }
+      theme: 'default'
     }, {
       label: 'Elegant',
-      theme: 'Elegant',
-      type: 'radio',
-      click: (menuItem) => {
-        this.themeClicked(menuItem)
-      }
+      theme: 'Elegant'
     }, {
       label: 'Mdn-Like',
-      theme: 'mdn-like',
-      type: 'radio',
-      click: (menuItem) => {
-        this.themeClicked(menuItem)
-      }
+      theme: 'mdn-like'
     }, {
       label: 'Neat',
-      theme: 'neat',
-      type: 'radio',
-      click: (menuItem) => {
-        this.themeClicked(menuItem)
-      }
+      theme: 'neat'
     }, {
       label: 'Neo',
-      theme: 'neo',
-      type: 'radio',
-      click: (menuItem) => {
+      theme: 'neo'
+    }]
+
+    // give properties
+    const selectedTheme = settings.get('theme')
+    themes.forEach((i) => {
+      const t = i
+      t.type = 'radio'
+      t.checked = (selectedTheme === t.theme)
+      t.click = (menuItem) => {
         this.themeClicked(menuItem)
       }
-    }]
+    })
+    return themes
   }
 }
 

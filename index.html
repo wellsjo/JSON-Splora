@@ -83,9 +83,12 @@
 
   <!-- Application entrypoint -->
   <script>
+    const Settings = require('./app/js/Settings')
     const MainMenu = require('./app/js/system/MainMenu')
     const App = require('./app/js/App')
+    const settings = new Settings()
     const app = new App()
+    app.createPage()
     const menu = new MainMenu(app)
   </script>
 </body>
