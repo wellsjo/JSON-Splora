@@ -22,9 +22,9 @@ class App {
 
   constructor() {
     mkdirp(path.resolve(__dirname, '..', 'tmp'))
-    this.pages = [new Page()]
+    this.pages = []
     this.current_page = 0
-    this.theme = 'default'
+    this.theme = settings.get('theme')
   }
 
   /**
@@ -53,7 +53,7 @@ class App {
   createPage() {
     const page = new Page()
     page.setTheme(this.theme)
-    this.pages.append(page)
+    this.pages.push(page)
   }
 }
 
