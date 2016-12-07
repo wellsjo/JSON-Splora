@@ -1,5 +1,5 @@
 /**
- * TODO add desc
+ * Settings
  */
 
 'use strict'

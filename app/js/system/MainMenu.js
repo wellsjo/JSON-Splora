@@ -201,14 +201,17 @@ class MainMenu {
       label: 'Neo',
       theme: 'neo'
     }]
+
+    // give properties
     const selectedTheme = settings.get('theme')
-    for (let i = 0; i < themes.length; i += 1) {
-      themes[i].type = 'radio'
-      themes[i].checked = (selectedTheme === themes[i].theme)
-      themes[i].click = (menuItem) => {
+    themes.forEach((i) => {
+      const t = i
+      t.type = 'radio'
+      t.checked = (selectedTheme === t.theme)
+      t.click = (menuItem) => {
         this.themeClicked(menuItem)
       }
-    }
+    })
     return themes
   }
 }
