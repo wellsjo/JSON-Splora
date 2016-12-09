@@ -20,11 +20,11 @@ class App {
    * Start application by creating a page
    */
 
-  constructor() {
+  constructor(settings) {
     mkdirp(path.resolve(__dirname, '..', 'tmp'))
     this.pages = []
     this.current_page = 0
-    this.theme = settings.get('theme')
+    this.settings = settings
   }
 
   /**
@@ -52,11 +52,10 @@ class App {
 
   createPage() {
     const page = new Page()
-    page.setTheme(this.theme)
+    page.setTheme((this.settings) ? this.settings.theme : 'default')
     this.pages.push(page)
   }
 }
-
 
 /**
  * Export app
