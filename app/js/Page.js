@@ -24,8 +24,6 @@ class Page {
    */
 
   constructor() {
-    this.bottomWrapper = $('.bottom-wrapper')
-    this.leftPanel = $('.panel-left')
 
     // Create input/output editors
     const editorEl = document.querySelector('.json-input')
@@ -34,11 +32,19 @@ class Page {
     this.editor = new Editor(editorEl, filterInput)
     this.output = new Output(outputEl)
 
+    // Set page jQuery elements
+    this.bottomWrapper = $('.bottom-wrapper')
+    this.editorWrapper = $('.editor-wrapper')
+    this.leftPanel = $('.panel-left')
+
     // Enable slider pane UI
-    $('.panel-left').resizable({
+    this.leftPanel.resizable({
       handleSelector: '.splitter',
       handles: 'e, w'
     })
+
+    // Width percentage of the output panel
+    this.outputWidthPercent = 50
 
     // Respond to valid input and key events
     this.handleEvents()
@@ -79,6 +85,13 @@ class Page {
       $('.filter-icon').attr('src', 'app/assets/type.png')
       this.hideRightPanel()
     })
+
+    // Update the panel width percent when it is dragged
+    this.leftPanel.on('resize', () => {
+      const containerWidth = Number(this.editorWrapper.css('width').replace('px', ''))
+      const panelWidth = Number(this.leftPanel.css('width').replace('px', ''))
+      this.outputWidthPercent = 100 * (panelWidth / containerWidth)
+    })
   }
 
   /**
@@ -97,7 +110,7 @@ class Page {
    */
 
   showRightPanel() {
-    this.leftPanel.css('width', '50%')
+    this.leftPanel.css('width', `${this.outputWidthPercent}%`)
   }
 
   /**
