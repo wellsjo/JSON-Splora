@@ -16,9 +16,9 @@
     "install": "node bin/install",
     "start": "electron .",
     "start-dev": "ENV=development electron .",
-    "build-darwin": "node_modules/.bin/electron-packager . --darwin --overwrite",
+    "build-darwin": "node_modules/.bin/electron-packager . --darwin --overwrite --icon=app/assets/logos/mac-logo.icns",
+    "build-win32": "node_modules/.bin/electron-packager . --win32 --overwrite --icon=app/assets/logos/windows-logo.ico",
     "build-linux": "node_modules/.bin/electron-packager . --linux --overwrite",
-    "build-win32": "node_modules/.bin/electron-packager . --win32 --overwrite",
     "lint": "node_modules/.bin/eslint -c .eslintrc.json --fix index.js app/js spec/",
     "validate": "node_modules/.bin/eslint -c .eslintrc.json index.js app/js spec/",
     "test": "node_modules/.bin/jasmine"
@@ -59,7 +59,6 @@
     "superagent": "^3.1.0"
   },
   "pre-commit": [
-    "lint",
     "validate",
     "test"
   ]
