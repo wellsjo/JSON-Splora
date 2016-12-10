@@ -34,6 +34,7 @@ class App {
    */
 
   setTheme(theme) {
+    this.settings.set('theme', theme)
     this.pages.forEach(page => page.setTheme(theme))
   }
 

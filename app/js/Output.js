@@ -4,6 +4,8 @@
 
 'use strict'
 
+// const CodeMirror = require('codemirror')
+
 class Output {
 
   /**
@@ -11,7 +13,7 @@ class Output {
    */
 
   constructor(el) {
-    this.outputEditor = CodeMirror.fromTextArea(el, {
+    this.output = CodeMirror.fromTextArea(el, {
       lineNumbers: true,
       smartIndent: true,
       readOnly: true,
@@ -29,15 +31,27 @@ class Output {
    */
 
   show(data) {
-    this.outputEditor.setValue(JSON.stringify(data, null, 2))
+    this.output.setValue(JSON.stringify(data, null, 2))
   }
 
   /**
    * Sets the theme dynamically
+   *
+   * @param {String} theme
    */
 
   setTheme(theme) {
-    this.outputEditor.setOption('theme', theme)
+    this.output.setOption('theme', theme)
+  }
+
+  /**
+   * Return the output theme
+   *
+   * @param {String} setting Retrieve an editor setting
+   */
+
+  getSetting(setting) {
+    return this.output.getOption(setting)
   }
 }
 
