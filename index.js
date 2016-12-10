@@ -22,7 +22,8 @@ function createWindow() {
 
   mainWindow = new BrowserWindow({
     width: WINDOW_WIDTH,
-    height: WINDOW_HEIGHT
+    height: WINDOW_HEIGHT,
+    icon: `${__dirname}/app/assets/logos/logo.png`
   })
 
   mainWindow.loadURL(`file://${__dirname}/index.html`)
