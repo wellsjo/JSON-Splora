@@ -21,7 +21,7 @@
     "build-linux": "node_modules/.bin/electron-packager . --linux --overwrite",
     "lint": "node_modules/.bin/eslint -c .eslintrc.json --fix index.js app/js spec/",
     "validate": "node_modules/.bin/eslint -c .eslintrc.json index.js app/js spec/",
-    "test": "node_modules/.bin/jasmine"
+    "test": "node_modules/.bin/jasmine JASMINE_CONFIG_PATH=jasmine.json"
   },
   "keywords": [
     "Electron",
