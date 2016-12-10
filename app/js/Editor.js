@@ -11,6 +11,7 @@
 const { EventEmitter } = require('events')
 const welcomeMessage = require('./system/welcome-message')
 const superagent = require('superagent')
+// const CodeMirror = require('codemirror')
 const beautify = require('js-beautify').js_beautify
 const json5 = require('json5')
 const isUrl = require('is-url')
@@ -152,10 +153,22 @@ class Editor extends EventEmitter {
 
   /**
    * Set the theme dynamically
+   *
+   * @param {String} theme The theme to set
    */
 
   setTheme(theme) {
     this.editor.setOption('theme', theme)
+  }
+
+  /**
+   * Returns the editor theme
+   *
+   * @param {String} setting Retrieve an editor setting
+   */
+
+  getSetting(setting) {
+    return this.editor.getOption(setting)
   }
 
   /**

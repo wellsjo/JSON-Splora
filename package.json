@@ -19,8 +19,9 @@
     "build-darwin": "node_modules/.bin/electron-packager . --darwin --overwrite",
     "build-linux": "node_modules/.bin/electron-packager . --linux --overwrite",
     "build-win32": "node_modules/.bin/electron-packager . --win32 --overwrite",
-    "lint": "node_modules/.bin/eslint -c .eslintrc.json --fix index.js app/js",
-    "validate": "node_modules/.bin/eslint -c .eslintrc.json index.js app/js"
+    "lint": "node_modules/.bin/eslint -c .eslintrc.json --fix index.js app/js spec/",
+    "validate": "node_modules/.bin/eslint -c .eslintrc.json index.js app/js spec/",
+    "test": "node_modules/.bin/jasmine"
   },
   "keywords": [
     "Electron",
@@ -36,7 +37,8 @@
     "eslint-config-airbnb": "^13.0.0",
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^2.2.3",
-    "eslint-plugin-react": "^6.7.1"
+    "eslint-plugin-react": "^6.7.1",
+    "jasmine": "^2.5.2"
   },
   "dependencies": {
     "codemirror": "^5.20.2",
@@ -53,9 +55,12 @@
     "menu": "^0.2.5",
     "mkdirp": "^0.5.1",
     "node-jq": "^0.4.0",
+    "proxyquire": "^1.7.10",
     "superagent": "^3.1.0"
   },
   "pre-commit": [
-    "validate"
+    "lint",
+    "validate",
+    "test"
   ]
 }

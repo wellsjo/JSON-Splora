@@ -20,11 +20,11 @@ class App {
    * Start application by creating a page
    */
 
-  constructor() {
+  constructor(document, settings) {
     mkdirp(path.resolve(__dirname, '..', 'tmp'))
+    this.document = document
+    this.settings = settings
     this.pages = []
-    this.current_page = 0
-    this.theme = settings.get('theme')
   }
 
   /**
@@ -34,7 +34,7 @@ class App {
    */
 
   setTheme(theme) {
-    this.theme = theme
+    this.settings.set('theme', theme)
     this.pages.forEach(page => page.setTheme(theme))
   }
 
@@ -51,12 +51,12 @@ class App {
    */
 
   createPage() {
-    const page = new Page()
-    page.setTheme(this.theme)
+    const page = new Page(this.document)
+    page.setTheme(this.settings.get('theme'))
     this.pages.push(page)
+    this.current_page = this.pages.length - 1
   }
 }
-
 
 /**
  * Export app

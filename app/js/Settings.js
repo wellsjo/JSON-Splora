@@ -25,7 +25,7 @@ const defaultSettings = {
 class Settings {
 
   /**
-   * TODO create desc
+   * Create reusable config
    */
 
   constructor() {
@@ -35,7 +35,6 @@ class Settings {
       name: 'settings',
       defaults: defaultSettings
     })
-
   }
 
   /**

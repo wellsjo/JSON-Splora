@@ -16,3 +16,6 @@ npm-debug.log
 .npm
 .eslintcache
 app/tmp
+
+# Mac OSX Files
+.DS_Store
