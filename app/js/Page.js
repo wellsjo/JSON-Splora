@@ -21,9 +21,11 @@ class Page {
   /**
    * Creates input and output editors, sets the horizontal slider, and
    * registers DOM events
+   *
+   * @param {Document} document The DOM document object
    */
 
-  constructor() {
+  constructor(document) {
 
     // Create input/output editors
     const editorEl = document.querySelector('.json-input')

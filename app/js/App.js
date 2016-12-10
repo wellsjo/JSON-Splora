@@ -20,11 +20,11 @@ class App {
    * Start application by creating a page
    */
 
-  constructor(settings) {
+  constructor(document, settings) {
     mkdirp(path.resolve(__dirname, '..', 'tmp'))
-    this.pages = []
-    this.current_page = 0
+    this.document = document
     this.settings = settings
+    this.pages = []
   }
 
   /**
@@ -50,9 +50,10 @@ class App {
    */
 
   createPage() {
-    const page = new Page()
+    const page = new Page(this.document)
     page.setTheme(this.settings.get('theme'))
     this.pages.push(page)
+    this.current_page = this.pages.length - 1
   }
 }
 
