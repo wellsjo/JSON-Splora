@@ -38,8 +38,7 @@
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^2.2.3",
     "eslint-plugin-react": "^6.7.1",
-    "jasmine": "^2.5.2",
-    "spectron": "^3.4.0"
+    "jasmine": "^2.5.2"
   },
   "dependencies": {
     "codemirror": "^5.20.2",

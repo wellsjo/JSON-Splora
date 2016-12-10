@@ -34,7 +34,6 @@ class App {
    */
 
   setTheme(theme) {
-    this.theme = theme
     this.pages.forEach(page => page.setTheme(theme))
   }
 
@@ -52,7 +51,7 @@ class App {
 
   createPage() {
     const page = new Page()
-    page.setTheme((this.settings) ? this.settings.theme : 'default')
+    page.setTheme(this.settings.get('theme'))
     this.pages.push(page)
   }
 }
