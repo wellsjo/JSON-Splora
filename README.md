@@ -39,7 +39,7 @@ npm run-script build-win32
 ```
 
 ## Contributing
-Contributions are welcome! Please read through and follow the style of the rest of the code. `eslint` is used as a code pre-commit hook, and will catch many simple errors. Explain the reason for the proposed change in your PR, and how to test it (if applicable). 
+Contributions are welcome! Please read through and follow the style of the rest of the code. `eslint` is used as a code pre-commit hook, and will catch many simple errors. Please squash your commits and leave concise commit messages.
 
 ## License
 [MIT](https://github.com/wellsjo/json-splora/blob/master/LICENSE)
