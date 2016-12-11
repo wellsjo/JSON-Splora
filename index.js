@@ -3,6 +3,7 @@
 // Dependencies
 const enableContextMenu = require('electron-context-menu')
 const electron = require('electron')
+const mkdirp = require('mkdirp')
 const path = require('path')
 const fs = require('fs')
 
