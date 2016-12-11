@@ -72,19 +72,19 @@ class Page {
 
     // Show filter type on valid filter
     this.editor.on('filter-valid', (filter) => {
-      $('.filter-icon').attr('src', `app/assets/icons/${filter.type}.svg`)
+      $('.filter-icon').attr('src', `app/assets/images/${filter.type}.svg`)
       this.output.show(filter.result)
       this.showRightPanel()
     })
 
     // Show generic filter icon when filter is invalid or empty
     this.editor.on('filter-invalid', () => {
-      $('.filter-icon').attr('src', 'app/assets/icons/no-filter.png')
+      $('.filter-icon').attr('src', 'app/assets/images/no-filter.png')
     })
 
     // Hide right panel when filter is empty
     this.editor.on('filter-empty', () => {
-      $('.filter-icon').attr('src', 'app/assets/icons/no-filter.png')
+      $('.filter-icon').attr('src', 'app/assets/images/no-filter.png')
       this.hideRightPanel()
     })
 
