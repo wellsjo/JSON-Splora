@@ -16,8 +16,9 @@ class MainMenu {
    * Create the main menu for the given app
    */
 
-  constructor(app) {
+  constructor(app, settings) {
     this.app = app
+    this.settings = settings
     const template = this.createTemplate()
 
     // Finally, build menu
@@ -29,7 +30,7 @@ class MainMenu {
    */
 
   themeClicked(menuItem) {
-    settings.set('theme', menuItem.theme)
+    this.settings.set('theme', menuItem.theme)
     this.app.setTheme(menuItem.theme)
   }
 
@@ -203,7 +204,7 @@ class MainMenu {
     }]
 
     // give properties
-    const selectedTheme = settings.get('theme')
+    const selectedTheme = this.settings.get('theme')
     themes.forEach((i) => {
       const t = i
       t.type = 'radio'

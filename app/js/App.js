@@ -50,11 +50,15 @@ class App {
    * Create a new page
    */
 
-  createPage() {
+  createPage(input, cursorPos) {
     const page = new Page(this.document)
     page.setTheme(this.settings.get('theme'))
     this.pages.push(page)
     this.current_page = this.pages.length - 1
+    if (input) {
+      this.getCurrentPage().editor.setValue(input)
+      this.getCurrentPage().editor.setCursor(cursorPos)
+    }
   }
 }
 

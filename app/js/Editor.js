@@ -9,7 +9,6 @@
  */
 
 const { EventEmitter } = require('events')
-const welcomeMessage = require('./system/welcome-message')
 const superagent = require('superagent')
 
 // const CodeMirror = require('codemirror')
@@ -76,14 +75,6 @@ class Editor extends EventEmitter {
 
     // Set js-beautify format options
     this.formatOptions = defaultFormatOptions
-
-    // Welcome message
-    this.editor.setValue(welcomeMessage)
-
-    // Place cursor (after the welcome message)
-    this.editor.setCursor({
-      line: 10
-    })
 
     // Handle functions that respond to input
     this.handleEvents()
@@ -160,6 +151,28 @@ class Editor extends EventEmitter {
 
   setTheme(theme) {
     this.editor.setOption('theme', theme)
+  }
+
+  /**
+   * Set the editor value dynamically
+   *
+   * @param {String} value The value to set
+   */
+
+  setValue(value) {
+    this.editor.setValue(value)
+    this.validate()
+    this.format()
+  }
+
+  /**
+   * Set the editor value dynamically
+   *
+   * @param {String} value The value to set
+   */
+
+  setCursor(line) {
+    this.editor.setCursor({ line })
   }
 
   /**

@@ -3,6 +3,8 @@
 // Dependencies
 const enableContextMenu = require('electron-context-menu')
 const electron = require('electron')
+const path = require('path')
+const fs = require('fs')
 
 const { BrowserWindow } = electron
 const { app } = electron
@@ -13,6 +15,10 @@ const WINDOW_WIDTH = 1000
 
 // Environment
 const env = process.env.ENV || 'production'
+
+// If there are args, they are being passed from the command line, which means we
+// must slice them again
+const args = process.argv.slice(2)
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -26,6 +32,15 @@ function createWindow() {
     icon: `${__dirname}/app/assets/logos/logo.png`
   })
 
+  // If initialized with a file input from the command line, save the path
+  if (typeof args[0] === 'string') {
+    const inputFile = path.resolve(args[0])
+    if (inputFile && fs.existsSync(inputFile) && fs.lstatSync(inputFile).isFile()) {
+      fs.writeFileSync(`${__dirname}/app/tmp/input.json`, inputFile)
+    }
+  }
+
+  // Load the main program window
   mainWindow.loadURL(`file://${__dirname}/index.html`)
 
   // Enable context menu
