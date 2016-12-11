@@ -21,7 +21,7 @@ The editor is a JavaScript editor, and the input is parsed as [json5](http://jso
 - First evaluated as JavaScript with `output = x${filter}`
 - If JS fails, it attempts to use [jq](https://stedolan.github.io/jq/)
 
-## Command Line Usage
+## Command Line
 ```bash
 jsplora [file]
 ```
