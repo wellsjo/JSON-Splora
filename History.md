@@ -1,4 +1,13 @@
 
+0.0.7 / 2016-12-11
+==================
+
+- Open files with 'jsplora [file]'
+- Added app icon
+- Settings are now persisted
+- Bug fixes
+- Added tests
+
 0.0.6 / 2016-12-05
 ==================
 
