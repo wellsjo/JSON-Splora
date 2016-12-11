@@ -40,7 +40,7 @@ function createWindow() {
   if (typeof args[0] === 'string') {
     const inputFile = path.resolve(args[0])
     if (inputFile && fs.existsSync(inputFile) && fs.lstatSync(inputFile).isFile()) {
-      fs.writeFileSync(`${__dirname}/app/tmp/input.json`, inputFile)
+      fs.writeFileSync(path.resolve(__dirname, 'app', 'tmp', 'input.json'), inputFile)
     }
   }
 
