@@ -1,5 +1,7 @@
 # JSON-Splora <img src="https://raw.githubusercontent.com/wellsjo/JSON-Splora/master/app/assets/logos/logo.png" width="40" align="left">
 
+[![Join the chat at https://gitter.im/JSON-Splora/Lobby](https://badges.gitter.im/JSON-Splora/Lobby.svg)](https://gitter.im/JSON-Splora/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 **JSON-Splora** is a GUI for editing, visualizing, and manipulating JSON data with [jq](https://stedolan.github.io/jq/) or JavaScript.
 
 ![Demo](http://i.imgur.com/CiXIrrg.gif)
