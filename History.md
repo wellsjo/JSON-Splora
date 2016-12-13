@@ -1,4 +1,9 @@
 
+1.0.0 / 2016-12-12
+==================
+
+I am forced to update to 1.0.0 so that users can lock the version before for deprecation. JSON-Splora package is moving to json-splora.
+
 0.0.7 / 2016-12-11
 ==================
 
