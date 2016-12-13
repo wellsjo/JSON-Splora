@@ -1,6 +1,6 @@
 # JSON-Splora <img src="https://raw.githubusercontent.com/wellsjo/JSON-Splora/master/app/assets/logos/logo.png" width="40" align="left">
 
-## Warning: Name Change!
+### Warning: Name Change!
 **JSON-Splora** is becoming **json-splora**. This is because of a bug with npm confusing the two packages. I am releasing 1.0.0 and deprecating "JSON-Splora" module and moving to "json-splora". I apologize for any inconvenience.
 
 **JSON-Splora** is a GUI for editing, visualizing, and manipulating JSON data with [jq](https://stedolan.github.io/jq/) or JavaScript.
