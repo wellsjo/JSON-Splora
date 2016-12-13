@@ -1,10 +1,13 @@
 # JSON-Splora <img src="https://raw.githubusercontent.com/wellsjo/JSON-Splora/master/app/assets/logos/logo.png" width="40" align="left">
 
-[![Join the chat at https://gitter.im/JSON-Splora/Lobby](https://badges.gitter.im/JSON-Splora/Lobby.svg)](https://gitter.im/JSON-Splora/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+## Warning: Name Change!
+**JSON-Splora** is becoming **json-splora**. This is because of a bug with npm confusing the two packages. I am releasing 1.0.0 and deprecating "JSON-Splora" module and moving to "json-splora". I apologize for any inconvenience.
 
 **JSON-Splora** is a GUI for editing, visualizing, and manipulating JSON data with [jq](https://stedolan.github.io/jq/) or JavaScript.
 
 ![Demo](http://i.imgur.com/CiXIrrg.gif)
+
+[![Join the chat at https://gitter.im/JSON-Splora/Lobby](https://badges.gitter.im/JSON-Splora/Lobby.svg)](https://gitter.im/JSON-Splora/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 ## Design
 - Built with [Electron](http://electron.atom.io/)
