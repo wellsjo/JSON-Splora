@@ -32,7 +32,7 @@ jsplora [file]
 #### Globally (cli)
 This will create the application as well as the alias `jsplora`.
 ```bash
-npm i -g JSON-Splora
+npm i -g json-splora
 ```
 #### Locally
 Building locally creates a directory `JSON-Splora-<system>` which contains the application.
