@@ -1,6 +1,6 @@
 {
-  "name": "JSON-Splora",
-  "version": "1.0.0",
+  "name": "json-splora",
+  "version": "1.0.1",
   "description": "GUI for editing, visualizing, and manipulating JSON data",
   "main": "index.js",
   "repository": {

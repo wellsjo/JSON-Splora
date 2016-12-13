@@ -1,8 +1,5 @@
 # JSON-Splora <img src="https://raw.githubusercontent.com/wellsjo/JSON-Splora/master/app/assets/logos/logo.png" width="40" align="left">
 
-### Warning: Name Change!
-**JSON-Splora** is becoming **json-splora**. This is because of a bug with npm confusing the two packages. I am releasing 1.0.0 and deprecating "JSON-Splora" module and moving to "json-splora". I apologize for any inconvenience.
-
 **JSON-Splora** is a GUI for editing, visualizing, and manipulating JSON data with [jq](https://stedolan.github.io/jq/) or JavaScript.
 
 ![Demo](http://i.imgur.com/CiXIrrg.gif)
@@ -32,7 +29,7 @@ jsplora [file]
 ```
 
 ## Install
-#### Globally
+#### Globally (cli)
 This will create the application as well as the alias `jsplora`.
 ```bash
 npm i -g JSON-Splora
@@ -47,6 +44,9 @@ npm run-script build-darwin
 npm run-script build-linux
 npm run-script build-win32
 ```
+
+### Name Change
+**JSON-Splora** is becoming **json-splora**. This is because of a bug with npm confusing the two packages. I am releasing 1.0.0 and deprecating "JSON-Splora" module and moving to "json-splora". I apologize for any inconvenience.
 
 ## Contributing
 Contributions are welcome! Please read through and follow the style of the rest of the code. `eslint` is used as a code pre-commit hook, and will catch many simple errors. Please squash your commits and leave concise commit messages.
