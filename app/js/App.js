@@ -4,7 +4,10 @@
  * Dependencies
  */
 
-const Page = require('./Page')
+
+const mkdirp = require('mkdirp')
+const path = require('path')
+const Tabs = require('./Tabs')
 
 /**
  * App container class
@@ -15,13 +18,16 @@ const Page = require('./Page')
 class App {
 
   /**
-   * Start application by creating a page
+   * Start application
    */
 
   constructor(document, settings) {
+    mkdirp(path.resolve(__dirname, '..', 'tmp'))
     this.document = document
     this.settings = settings
-    this.pages = []
+    this.theme = settings.get('theme')
+    const rootEl = this.document.querySelector('#tabs')
+    this.tabs = new Tabs(rootEl, this.theme)
   }
 
   /**
@@ -32,30 +38,16 @@ class App {
 
   setTheme(theme) {
     this.settings.set('theme', theme)
-    this.pages.forEach(page => page.setTheme(theme))
+    this.theme = theme
+    this.tabs.setTheme(theme)
   }
 
   /**
-   * Get the current page
+   * @todo Get the current tab
    */
 
-  getCurrentPage() {
-    return this.pages[this.current_page]
-  }
-
-  /**
-   * Create a new page
-   */
-
-  createPage(input, cursorPos) {
-    const page = new Page(this.document)
-    page.setTheme(this.settings.get('theme'))
-    this.pages.push(page)
-    this.current_page = this.pages.length - 1
-    if (input) {
-      this.getCurrentPage().editor.setValue(input)
-      this.getCurrentPage().editor.setCursor(cursorPos)
-    }
+  getCurrentTab() {
+    return this.tabs.activeTab
   }
 }
 

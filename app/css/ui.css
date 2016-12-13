@@ -47,3 +47,95 @@
   left: 8px;
   top: 5px;
 }
+
+/* jQuery UI Overrides */
+
+.ui-widget.ui-widget-content {
+  border: 0
+}
+
+.ui-tabs,
+.ui-tabs .ui-tabs-panel,
+.ui-tabs-vertical .ui-tabs-panel {
+  padding: 0;
+}
+
+.ui-tabs-nav {
+  padding-right: 0 !important;
+}
+
+.ui-widget-content .ui-state-active {
+  background: #fff;
+  border: 1px solid #ccc;
+}
+
+.ui-widget-content .ui-tabs-tab {
+  border-top-right-radius: 12px;
+  border-top-left-radius: 12px;
+  padding-right: 0 !important;
+}
+
+.ui-widget-header {
+  background: #fff;
+  border-right-width: 0;
+}
+
+.ui-widget-content .ui-state-active a {
+  color: #444;
+}
+
+body {
+  overflow: hidden;
+}
+
+#tab-header {
+  position:fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  height: 41px;
+  padding-left: 55px; /* width of gutter */
+}
+
+.ui-tabs-panel {
+  position: absolute;
+  padding-top: 41px !important;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.ui-tabs-tab,
+.ui-tabs-tab > * {
+  outline: none;
+}
+
+.ui-tabs-tab {
+  width: 50px;
+}
+
+.ui-tabs-tab + li.ui-tabs-tab {
+  margin-left: 0.5rem;
+}
+
+.ui-tabs-tab .ui-icon-close {
+  position: absolute;
+  right: 3px;
+  top: 6px;
+  cursor: pointer;
+}
+
+
+#new-tab {
+  cursor: pointer;
+  position: relative;
+  top: 8px;
+  left: 8px;
+  background: #f7f7f7;
+  border: 1px solid #f1f1f1;
+  color: #444;
+  border-radius: 6px;
+  padding: 4px 8px;
+}
