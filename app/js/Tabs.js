@@ -7,12 +7,17 @@
 const Tab = require('./Tab')
 
 class Tabs {
-  constructor(rootEl, theme) {
-    this.container = $(rootEl).tabs()
+  constructor(rootEl, theme = 'default') {
+    this.container = $(rootEl).tabs({
+      activate: (event, ui) => {
+        this.activeTabEl = ui.newTab
+        this.activeTabId = ui.newTab.data('tab')
+      }
+    })
     this.tabBar = this.container.find('#tab-header')
     this.tabs = []
     this.totalTabsCreated = 0 // Counter for unique tab ids
-    this.theme = theme || 'default'
+    this.theme = theme
 
     this.init()
   }
@@ -41,7 +46,7 @@ class Tabs {
    * Removes tab and cleans up any children
    */
 
-  removeTab(tabEl) {
+  removeTab(tabEl = this.activeTabEl) {
     const tabIndex = tabEl.index()
     const tabId = tabEl.remove().data('tab')
 

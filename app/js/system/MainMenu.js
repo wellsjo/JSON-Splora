@@ -57,6 +57,13 @@ class MainMenu {
           window.app = this.app
           this.app.tabs.newTab()
         }
+      }, {
+        label: 'Close Tab',
+        accelerator: 'CommandOrControl+w',
+        click: () => {
+          window.app = this.app
+          this.app.tabs.removeTab()
+        }
       }] }, {
         label: 'Edit',
         submenu: [{
