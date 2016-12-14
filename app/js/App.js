@@ -4,9 +4,6 @@
  * Dependencies
  */
 
-
-const mkdirp = require('mkdirp')
-const path = require('path')
 const Tabs = require('./Tabs')
 
 /**
@@ -22,7 +19,6 @@ class App {
    */
 
   constructor(document, settings) {
-    mkdirp(path.resolve(__dirname, '..', 'tmp'))
     this.document = document
     this.settings = settings
     this.theme = settings.get('theme')
