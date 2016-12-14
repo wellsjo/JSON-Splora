@@ -29,6 +29,7 @@ jsplora [file]
 ```
 
 ## Install
+Requires at least Node version `6`.
 #### Globally (cli)
 This will create the application as well as the alias `jsplora`.
 ```bash
