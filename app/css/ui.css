@@ -127,6 +127,11 @@ body {
   cursor: pointer;
 }
 
+.ui-state-active .ui-icon,
+.ui-button:active .ui-icon {
+    background-image: url(../vendor/jquery-ui/images/ui-icons_444444_256x240.png);
+}
+
 
 #new-tab {
   cursor: pointer;
