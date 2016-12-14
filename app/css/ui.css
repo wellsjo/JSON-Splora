@@ -98,13 +98,25 @@ body {
   padding-left: 55px; /* width of gutter */
 }
 
-.ui-tabs-panel {
+.tab-content.ui-tabs-panel {
   position: absolute;
-  padding-top: 41px !important;
+  padding-top: 41px;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
+}
+
+.tab-bar {
+  display: block;
+}
+
+.tab-bar-hidden .tab-bar {
+  display: none;
+}
+
+.tab-bar-hidden .tab-content {
+  padding-top: 0;
 }
 
 .ui-tabs-tab,

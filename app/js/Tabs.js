@@ -47,6 +47,10 @@ class Tabs {
    */
 
   removeTab(tabEl = this.activeTabEl) {
+    if (this.tabs.length === 1) {
+      return
+    }
+
     const tabIndex = tabEl.index()
     const tabId = tabEl.remove().data('tab')
 
@@ -55,6 +59,10 @@ class Tabs {
     removedTab.destroy()
 
     this.container.tabs('refresh')
+
+    if (this.tabs.length === 1) {
+      this.hideTabBar()
+    }
   }
 
   /**
@@ -90,6 +98,26 @@ class Tabs {
     }
 
     this.totalTabsCreated += 1
+
+    if (this.tabs.length > 1 && this.container.hasClass('tab-bar-hidden')) {
+      this.showTabBar()
+    }
+  }
+
+  /**
+   * Shows tab bar
+   */
+
+  showTabBar() {
+    this.container.removeClass('tab-bar-hidden')
+  }
+
+  /**
+   * Hides tab bar
+   */
+
+  hideTabBar() {
+    this.container.addClass('tab-bar-hidden')
   }
 }
 
