@@ -46,7 +46,9 @@ class Settings {
   }
 
   /**
-   * Get a value by key
+   * Get a settings value by key
+   *
+   * @param {String} key
    */
 
   get(key) {
@@ -54,7 +56,10 @@ class Settings {
   }
 
   /**
-   * Set a value by key
+   * Set a settings value by key
+   *
+   * @param {String} key
+   * @param {String} value
    */
 
   set(key, value) {

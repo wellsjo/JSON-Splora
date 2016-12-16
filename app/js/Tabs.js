@@ -7,7 +7,15 @@
 const Tab = require('./Tab')
 
 class Tabs {
-  constructor(rootEl, theme = 'default') {
+
+  /**
+   * Create tabs container and set theme
+   *
+   * @param {Element} rootEl Container element for tabs
+   * @param {String} theme Theme for the tab
+   */
+
+  constructor(rootEl, theme) {
     this.container = $(rootEl).tabs({
       activate: (event, ui) => {
         this.activeTabEl = ui.newTab
@@ -18,7 +26,6 @@ class Tabs {
     this.tabs = []
     this.totalTabsCreated = 0 // Counter for unique tab ids
     this.theme = theme
-
     this.init()
   }
 
@@ -35,6 +42,8 @@ class Tabs {
 
   /**
    * Sets theme for all tabs
+   *
+   * @param {String} theme
    */
 
   setTheme(theme) {
@@ -44,6 +53,8 @@ class Tabs {
 
   /**
    * Removes tab and cleans up any children
+   *
+   * @param {Element} tabEl The tab element to remove
    */
 
   removeTab(tabEl = this.activeTabEl) {
@@ -67,6 +78,9 @@ class Tabs {
 
   /**
    * Adds a new tab
+   *
+   * @param {String} input The text to start the editor with
+   * @param {Integer} currsorPos The line to start the cursor on
    */
 
   newTab(input, cursorPos) {

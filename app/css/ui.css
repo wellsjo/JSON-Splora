@@ -54,6 +54,15 @@
   border: 0
 }
 
+.ui-widget-content .ui-tabs-tab {
+  border-top-right-radius: 0px !important;
+  border-top-left-radius: 0px !important;
+}
+
+.ui-tabs-tab + li.ui-tabs-tab {
+  margin-left: 0rem !important;
+}
+
 .ui-tabs,
 .ui-tabs .ui-tabs-panel,
 .ui-tabs-vertical .ui-tabs-panel {
@@ -141,7 +150,7 @@ body {
 
 .ui-state-active .ui-icon,
 .ui-button:active .ui-icon {
-    background-image: url(../vendor/jquery-ui/images/ui-icons_444444_256x240.png);
+  background-image: url(../vendor/jquery-ui/images/ui-icons_444444_256x240.png);
 }
 
 

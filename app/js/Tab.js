@@ -9,9 +9,9 @@
  * Dependencies
  */
 
+const defaultTab = require('./system/default-tab')
 const Editor = require('./Editor')
 const Output = require('./Output')
-const defaultTab = require('./system/default-tab')
 
 /**
 * Creates input and output editors, sets the horizontal slider, and
@@ -19,6 +19,13 @@ const defaultTab = require('./system/default-tab')
 */
 
 class Tab {
+
+  /**
+   * Initiate a tab
+   *
+   * @param {Element} container
+   */
+
   constructor(container) {
     this.container = container
     this.container.html(defaultTab)
@@ -52,6 +59,12 @@ class Tab {
     this.handleEvents()
   }
 
+  /**
+   * Creates tab html
+   *
+   * @param {Integer} tabId
+   */
+
   static generateTabHeaderTemplate(tabId) {
     return `
       <li data-tab="${tabId}">
@@ -60,6 +73,12 @@ class Tab {
       </li>
     `
   }
+
+  /**
+   * Generate tab content html
+   *
+   * @param {Integer} tabId
+   */
 
   static generateTabContentTemplate(tabId) {
     return `<div id="tab-${tabId}" class="tab-content"></div>`
@@ -139,6 +158,8 @@ class Tab {
 
   /**
    * Sets the theme on both editors
+   *
+   * @param {String} theme
    */
 
   setTheme(theme) {

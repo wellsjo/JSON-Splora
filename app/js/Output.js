@@ -1,10 +1,27 @@
 /**
- * Output class wraps the output editor logic
+ * Controls the output pane
  */
 
 'use strict'
 
-// const CodeMirror = require('codemirror')
+// Default CodeMirror options for output editor
+const defaultOutputOptions = {
+  lineNumbers: true,
+  smartIndent: true,
+  foldGutter: true,
+  readOnly: true,
+  gutters: [
+    'CodeMirror-lint-markers',
+    'CodeMirror-linenumbers',
+    'CodeMirror-foldgutter'
+  ],
+  mode: 'application/javascript',
+  lint: true
+}
+
+/**
+ * Read-only CodeMirror editor wrapper
+ */
 
 class Output {
 
@@ -13,15 +30,7 @@ class Output {
    */
 
   constructor(el) {
-    this.output = CodeMirror.fromTextArea(el, {
-      lineNumbers: true,
-      smartIndent: true,
-      readOnly: true,
-      mode: 'application/javascript',
-      lint: true,
-      foldGutter: true,
-      gutters: ['CodeMirror-lint-markers', 'CodeMirror-linenumbers', 'CodeMirror-foldgutter']
-    })
+    this.output = CodeMirror.fromTextArea(el, defaultOutputOptions)
   }
 
   /**

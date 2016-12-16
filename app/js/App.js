@@ -16,14 +16,17 @@ class App {
 
   /**
    * Start application
+   *
+   * @param {Element} document The html document
+   * @param {Object} settings Application settings coming from electron-config
    */
 
   constructor(document, settings) {
     this.document = document
     this.settings = settings
-    this.theme = settings.get('theme')
+    const theme = settings.get('theme')
     const rootEl = this.document.querySelector('#tabs')
-    this.tabs = new Tabs(rootEl, this.theme)
+    this.tabs = new Tabs(rootEl, theme)
   }
 
   /**
@@ -34,16 +37,7 @@ class App {
 
   setTheme(theme) {
     this.settings.set('theme', theme)
-    this.theme = theme
     this.tabs.setTheme(theme)
-  }
-
-  /**
-   * @todo Get the current tab
-   */
-
-  getCurrentTab() {
-    return this.tabs.activeTab
   }
 }
 
