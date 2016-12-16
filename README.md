@@ -4,8 +4,6 @@
 
 ![Demo](http://i.imgur.com/CiXIrrg.gif)
 
-[![MIT Licence](https://badges.frapsoft.com/os/mit/mit.png?v=103)](https://github.com/wellsjo/JSON-Splora/blob/master/LICENSE)[![Join the chat at https://gitter.im/JSON-Splora/Lobby](https://badges.gitter.im/JSON-Splora/Lobby.svg)](https://gitter.im/JSON-Splora/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-
 ## Design
 - Built with [Electron](http://electron.atom.io/)
 - Editor and output both use [CodeMirror](https://codemirror.net/)
