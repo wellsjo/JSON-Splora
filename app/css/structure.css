@@ -12,7 +12,6 @@ body {
   flex-direction: row;
   overflow: hidden;
   display: flex;
-  border: 1px solid silver;
   width: 100%;
   height: calc(100vh);
 }

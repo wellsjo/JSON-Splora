@@ -1,5 +1,5 @@
 /**
- * The Page class wraps the logic for the page DOM. It creates the input and
+ * The Tab class wraps the logic for the page DOM. It creates the input and
  * output editors, and responds to their events.
  */
 
@@ -9,28 +9,35 @@
  * Dependencies
  */
 
+const defaultTab = require('./system/default-tab')
 const Editor = require('./Editor')
 const Output = require('./Output')
 
 /**
- * Page
- */
+* Creates input and output editors, sets the horizontal slider, and
+* registers DOM events
+*/
 
-class Page {
+class Tab {
 
   /**
-   * Creates input and output editors, sets the horizontal slider, and
-   * registers DOM events
+   * Initiate a tab
    *
-   * @param {Document} document The DOM document object
+   * @param {Element} container
    */
 
-  constructor(document) {
+  constructor(container) {
+    this.container = container
+    this.container.html(defaultTab)
 
-    // Create input/output editors
-    const editorEl = document.querySelector('.json-input')
-    const outputEl = document.querySelector('.filter-output')
-    const filterInput = $('.filter-input')
+    this.bottomWrapper = this.container.find('.bottom-wrapper')
+    this.leftPanel = this.container.find('.panel-left')
+    this.filterIcon = this.container.find('.filter-icon')
+
+    const editorEl = this.container.find('.json-input')[0]
+    const outputEl = this.container.find('.filter-output')[0]
+    const filterInput = this.container.find('.filter-input')
+
     this.editor = new Editor(editorEl, filterInput)
     this.output = new Output(outputEl)
 
@@ -53,14 +60,40 @@ class Page {
   }
 
   /**
+   * Creates tab html
+   *
+   * @param {Integer} tabId
+   */
+
+  static generateTabHeaderTemplate(tabId) {
+    return `
+      <li data-tab="${tabId}">
+        <a href="#tab-${tabId}">&nbsp;</a>
+        <span class="ui-icon ui-icon-close" role="presentation">Remove Tab</span>
+      </li>
+    `
+  }
+
+  /**
+   * Generate tab content html
+   *
+   * @param {Integer} tabId
+   */
+
+  static generateTabContentTemplate(tabId) {
+    return `<div id="tab-${tabId}" class="tab-content"></div>`
+  }
+
+  /**
    * Respond to events emitted from the editor
    */
 
   handleEvents() {
 
     // Show the bottom bar when valid input is detected
+
     this.editor.on('input-valid', () => {
-      if ($('.bottom-wrapper').hasClass('hidden')) {
+      if (this.bottomWrapper.hasClass('hidden')) {
         this.showBottomBar()
         this.editor.focusFilter()
       } else {
@@ -72,19 +105,19 @@ class Page {
 
     // Show filter type on valid filter
     this.editor.on('filter-valid', (filter) => {
-      $('.filter-icon').attr('src', `app/assets/images/${filter.type}.svg`)
+      this.filterIcon.attr('src', `app/assets/images/${filter.type}.svg`)
       this.output.show(filter.result)
       this.showRightPanel()
     })
 
     // Show generic filter icon when filter is invalid or empty
     this.editor.on('filter-invalid', () => {
-      $('.filter-icon').attr('src', 'app/assets/images/no-filter.png')
+      this.filterIcon.attr('src', 'app/assets/images/no-filter.png')
     })
 
     // Hide right panel when filter is empty
     this.editor.on('filter-empty', () => {
-      $('.filter-icon').attr('src', 'app/assets/images/no-filter.png')
+      this.filterIcon.attr('src', 'app/assets/images/no-filter.png')
       this.hideRightPanel()
     })
 
@@ -125,11 +158,21 @@ class Page {
 
   /**
    * Sets the theme on both editors
+   *
+   * @param {String} theme
    */
 
   setTheme(theme) {
     this.editor.setTheme(theme)
     this.output.setTheme(theme)
+  }
+
+  /**
+   * Cleans up any outstanding listeners within itself and it's contained editor and output classes
+   */
+
+  destroy() {
+    this.editor.removeAllListeners()
   }
 }
 
@@ -137,4 +180,4 @@ class Page {
  * Exports
  */
 
-module.exports = Page
+module.exports = Tab

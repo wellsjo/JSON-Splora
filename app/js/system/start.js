@@ -25,7 +25,7 @@ if (fs.existsSync(inputFile)) {
 const settings = new Settings()
 const app = new App(document, settings)
 
-app.createPage(input, cursorPos)
+app.tabs.newTab(input, cursorPos)
 const menu = new MainMenu(app, settings)
 
 module.exports = menu

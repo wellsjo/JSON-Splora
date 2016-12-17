@@ -10,8 +10,6 @@
 
 const { EventEmitter } = require('events')
 const superagent = require('superagent')
-
-// const CodeMirror = require('codemirror')
 const beautify = require('js-beautify').js_beautify
 const json5 = require('json5')
 const isUrl = require('is-url')

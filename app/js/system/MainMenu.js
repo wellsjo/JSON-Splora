@@ -38,7 +38,7 @@ class MainMenu {
     const template = [{
       label: 'File',
       submenu: [{
-        label: 'Open JSON file...',
+        label: 'Open',
         accelerator: 'CommandOrControl+O',
         click: () => {
           dialog.showOpenDialog(
@@ -46,9 +46,23 @@ class MainMenu {
             { filters: [{ name: 'JSON Files', extensions: ['json'] }, { name: 'All Files', extensions: ['*'] }] },
             (filePaths) => {
               window.app = this.app
-              this.app.getCurrentPage().editor.editor.setValue(fs.readFileSync(filePaths[0], 'utf8'))
+              this.app.tabs.newTab(fs.readFileSync(filePaths[0], 'utf8'), 0)
             }
           )
+        }
+      }, {
+        label: 'New Tab',
+        accelerator: 'CommandOrControl+t',
+        click: () => {
+          window.app = this.app
+          this.app.tabs.newTab()
+        }
+      }, {
+        label: 'Close Tab',
+        accelerator: 'CommandOrControl+w',
+        click: () => {
+          window.app = this.app
+          this.app.tabs.removeTab()
         }
       }] }, {
         label: 'Edit',
@@ -191,7 +205,7 @@ class MainMenu {
       theme: 'default'
     }, {
       label: 'Elegant',
-      theme: 'Elegant'
+      theme: 'elegant'
     }, {
       label: 'Mdn-Like',
       theme: 'mdn-like'
