@@ -70,6 +70,8 @@ class Editor extends EventEmitter {
 
     // Path to store data file so it can be read for jq (required for large input)
     this.tmp = path.resolve(__dirname, '..', 'tmp', 'data.json')
+    // Absolute path is too long to be parsed by jq in Windows (jq bug)
+    this.tmpRelative = path.join('app', 'tmp', 'data.json')
 
     // Set js-beautify format options
     this.formatOptions = defaultFormatOptions
@@ -249,7 +251,7 @@ class Editor extends EventEmitter {
       fs.writeFileSync(this.tmp, JSON.stringify(this.data))
 
       // If JavaScript filter fails, run through jq
-      jq.run(filter, this.tmp, {
+      jq.run(filter, this.tmpRelative, {
         input: 'file',
         output: 'json'
       }).then((result) => {
