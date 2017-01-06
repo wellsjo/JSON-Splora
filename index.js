@@ -18,7 +18,7 @@ const WINDOW_WIDTH = 1000
 const env = process.env.ENV || 'production'
 
 // Create tmp directory
-mkdirp(path.resolve(__dirname, '..', 'tmp'))
+mkdirp(path.resolve(__dirname, 'app', 'tmp'))
 
 // If there are args, they are being passed from the command line, which means we
 // must slice them again
