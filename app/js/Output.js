@@ -40,7 +40,13 @@ class Output {
    */
 
   show(data) {
-    this.output.setValue(JSON.stringify(data, null, 2))
+    let output = null
+    if (typeof data === 'string') {
+      output = data
+    } else {
+      output = JSON.stringify(data, null, 2)
+    }
+    this.output.setValue(output)
   }
 
   /**
