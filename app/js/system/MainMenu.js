@@ -6,6 +6,8 @@
 
 const fs = require('fs')
 
+const path = require('path')
+
 const { remote } = require('electron')
 
 const { Menu, BrowserWindow, dialog } = remote
@@ -19,10 +21,7 @@ class MainMenu {
   constructor(app, settings) {
     this.app = app
     this.settings = settings
-    const template = this.createTemplate()
-
-    // Finally, build menu
-    Menu.setApplicationMenu(Menu.buildFromTemplate(template))
+    this.updateMenu()
   }
 
   /**
@@ -45,11 +44,25 @@ class MainMenu {
             BrowserWindow.getFocusedWindow() || BrowserWindow.getAllWindows()[0],
             { filters: [{ name: 'JSON Files', extensions: ['json'] }, { name: 'All Files', extensions: ['*'] }] },
             (filePaths) => {
+              var filename = filePaths[0]           
+              var r = this.settings.get('recent') || []
+              if (r.indexOf(filename.toLowerCase()) === -1)
+              {
+                r.push(filePaths[0].toLowerCase());
+                this.settings.set('recent', r)
+              }
               window.app = this.app
-              this.app.tabs.newTab(fs.readFileSync(filePaths[0], 'utf8'), 0)
+              
+              this.app.tabs.newTab(fs.readFileSync(filename, 'utf8'), 0, path.basename(filename) )             
+
+              this.updateMenu()
             }
           )
         }
+      }, {
+        label: 'Open Recent',
+        accelerator: 'CommandOrControl+r',
+        submenu: this.createRecentSubMenu(this.updated),
       }, {
         label: 'New Tab',
         accelerator: 'CommandOrControl+t',
@@ -64,77 +77,78 @@ class MainMenu {
           window.app = this.app
           this.app.tabs.removeTab()
         }
-      }] }, {
-        label: 'Edit',
-        submenu: [{
-          role: 'undo'
-        }, {
-          role: 'redo'
-        }, {
-          type: 'separator'
-        }, {
-          role: 'cut'
-        }, {
-          role: 'copy'
-        }, {
-          role: 'paste'
-        }, {
-          role: 'selectall'
-        }, {
-          type: 'separator'
-        }, {
-          label: 'Format',
-          accelerator: 'CommandOrControl+Shift+F',
-          click: () => {
-            this.app.getCurrentPage().editor.format()
-          }
-        }, {
-          label: 'Minify',
-          accelerator: 'CommandOrControl+Shift+M',
-          click: () => {
-            this.app.getCurrentPage().editor.minify()
-          }
-        }]
-      }, {
-        label: 'View',
-        submenu: [{
-          role: 'reload'
-        }, {
-          role: 'toggledevtools'
-        }, {
-          type: 'separator'
-        }, {
-          role: 'resetzoom'
-        }, {
-          role: 'zoomin'
-        }, {
-          role: 'zoomout'
-        }, {
-          type: 'separator'
-        }, {
-          label: 'Theme',
-          submenu: this.createThemeSubMenu()
-        }, {
-          type: 'separator'
-        }, {
-          role: 'togglefullscreen'
-        }]
-      }, {
-        role: 'window',
-        submenu: [{
-          role: 'minimize'
-        }, {
-          role: 'close'
-        }]
-      }, {
-        role: 'help',
-        submenu: [{
-          label: 'Learn More',
-          click: () => {
-            electron.shell.openExternal('http://electron.atom.io')
-          }
-        }]
       }]
+    }, {
+      label: 'Edit',
+      submenu: [{
+        role: 'undo'
+      }, {
+        role: 'redo'
+      }, {
+        type: 'separator'
+      }, {
+        role: 'cut'
+      }, {
+        role: 'copy'
+      }, {
+        role: 'paste'
+      }, {
+        role: 'selectall'
+      }, {
+        type: 'separator'
+      }, {
+        label: 'Format',
+        accelerator: 'CommandOrControl+Shift+F',
+        click: () => {
+          this.app.getCurrentPage().editor.format()
+        }
+      }, {
+        label: 'Minify',
+        accelerator: 'CommandOrControl+Shift+M',
+        click: () => {
+          this.app.getCurrentPage().editor.minify()
+        }
+      }]
+    }, {
+      label: 'View',
+      submenu: [{
+        role: 'reload'
+      }, {
+        role: 'toggledevtools'
+      }, {
+        type: 'separator'
+      }, {
+        role: 'resetzoom'
+      }, {
+        role: 'zoomin'
+      }, {
+        role: 'zoomout'
+      }, {
+        type: 'separator'
+      }, {
+        label: 'Theme',
+        submenu: this.createThemeSubMenu()
+      }, {
+        type: 'separator'
+      }, {
+        role: 'togglefullscreen'
+      }]
+    }, {
+      role: 'window',
+      submenu: [{
+        role: 'minimize'
+      }, {
+        role: 'close'
+      }]
+    }, {
+      role: 'help',
+      submenu: [{
+        label: 'Learn More',
+        click: () => {
+          electron.shell.openExternal('http://electron.atom.io')
+        }
+      }]
+    }]
     if (process.platform === 'darwin') {
       template.unshift({
         label: 'JSON-Splora',
@@ -164,13 +178,13 @@ class MainMenu {
       template[2].submenu.push({
         type: 'separator'
       }, {
-        label: 'Speech',
-        submenu: [{
-          role: 'startspeaking'
-        }, {
-          role: 'stopspeaking'
-        }]
-      })
+          label: 'Speech',
+          submenu: [{
+            role: 'startspeaking'
+          }, {
+            role: 'stopspeaking'
+          }]
+        })
 
       // Window menu.
       template[4].submenu = [{
@@ -195,6 +209,40 @@ class MainMenu {
     return template
   }
 
+  createRecentSubMenu(updated) {
+    // give properties
+    
+    const recentFiles = this.settings.get('recent')
+    console.log( this , recentFiles)
+    let files = [];
+   
+    recentFiles.forEach((filename) => {
+      let mi = {}
+      mi.label = filename
+      mi.click = (menuItem) => {
+        window.app = this.app        
+        this.app.tabs.newTab(fs.readFileSync(filename, 'utf8'), 0, path.basename(filename));
+      }
+      files.push(mi)
+    })
+
+    if (files.length > 0) {
+      files.push({
+        type: 'separator'
+      })
+
+      files.push({
+        label: "Clear items",
+        click: () =>{
+          this.settings.set('recent', [])
+          this.updateMenu()
+        }
+      })
+    }
+    
+    return files
+  }
+
   /**
    * Create the theme sub menu. (Later versions can create this programmatically)
    */
@@ -215,6 +263,12 @@ class MainMenu {
     }, {
       label: 'Neo',
       theme: 'neo'
+    }, {
+      label: 'Seti',
+      theme: 'seti'
+    }, {
+      label: 'Zenburn',
+      theme: 'zenburn'
     }]
 
     // give properties
@@ -229,8 +283,16 @@ class MainMenu {
     })
     return themes
   }
-}
 
+
+  updateMenu() {
+    const template = this.createTemplate()
+
+    // build menu
+    Menu.setApplicationMenu(Menu.buildFromTemplate(template))
+  }
+
+}
 
 /**
  * Export MainMenu

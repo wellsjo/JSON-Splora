@@ -26,7 +26,9 @@ class Tab {
    * @param {Element} container
    */
 
-  constructor(container) {
+  constructor(container, tabName) {
+     console.log(tabName)
+    this.tabName = tabName || "&nbsp;";
     this.container = container
     this.container.html(defaultTab)
 
@@ -65,10 +67,10 @@ class Tab {
    * @param {Integer} tabId
    */
 
-  static generateTabHeaderTemplate(tabId) {
+  static generateTabHeaderTemplate(tabId, tabName) {
     return `
       <li data-tab="${tabId}">
-        <a href="#tab-${tabId}">&nbsp;</a>
+        <a href="#tab-${tabId}">${tabName || "Untitled-" + tabId }</a>
         <span class="ui-icon ui-icon-close" role="presentation">Remove Tab</span>
       </li>
     `
