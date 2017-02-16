@@ -81,7 +81,7 @@
 .ui-widget-content .ui-tabs-tab {
   border-top-right-radius: 12px;
   border-top-left-radius: 12px;
-  padding-right: 0 !important;
+  padding-right: 8px !important;
 }
 
 .ui-widget-header {
@@ -134,7 +134,7 @@ body {
 }
 
 .ui-tabs-tab {
-  width: 50px;
+  /* width: 50px; */
 }
 
 .ui-tabs-tab + li.ui-tabs-tab {
@@ -144,10 +144,15 @@ body {
 .ui-tabs-tab .ui-icon-close {
   position: absolute;
   right: 3px;
-  top: 6px;
+  top: 13px;
   cursor: pointer;
+  visibility: hidden;
 }
 
+.ui-tabs-tab:hover .ui-icon-close
+{
+  visibility: visible;
+}
 .ui-state-active .ui-icon,
 .ui-button:active .ui-icon {
   background-image: url(../vendor/jquery-ui/images/ui-icons_444444_256x240.png);

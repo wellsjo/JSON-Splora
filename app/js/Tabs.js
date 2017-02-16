@@ -83,10 +83,10 @@ class Tabs {
    * @param {Integer} currsorPos The line to start the cursor on
    */
 
-  newTab(input, cursorPos) {
-
+  newTab(input, cursorPos, tabName) {
+ 
     // Generate HTML
-    const tabEl = $(Tab.generateTabHeaderTemplate(this.totalTabsCreated))
+    const tabEl = $(Tab.generateTabHeaderTemplate(this.totalTabsCreated, tabName))
     const contentEl = $(Tab.generateTabContentTemplate(this.totalTabsCreated))
 
     // Setup listener to remove tab
@@ -98,7 +98,7 @@ class Tabs {
     this.container.append(contentEl)
 
     // Create the new tab
-    const newTab = new Tab(contentEl)
+    const newTab = new Tab(contentEl, tabName)
     newTab.setTheme(this.theme)
     this.tabs.push(newTab)
 

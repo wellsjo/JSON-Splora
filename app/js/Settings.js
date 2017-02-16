@@ -15,7 +15,8 @@ const Config = require('electron-config')
  */
 
 const defaultSettings = {
-  theme: 'default'
+  theme: 'default',
+  recent: []
 }
 
 /**
