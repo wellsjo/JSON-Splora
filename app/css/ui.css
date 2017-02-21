@@ -149,11 +149,7 @@ body {
   visibility: hidden;
 }
 
-.ui-tabs-tab:hover .ui-icon-close
-{
-  visibility: visible;
-}
-
+.ui-state-active .ui-icon,
 .ui-tabs-tab:hover .ui-icon-close
 {
   visibility: visible;

@@ -53,7 +53,7 @@ class MainMenu {
               }
               window.app = this.app
               
-              this.app.tabs.newTab(fs.readFileSync(filename, 'utf8'), 0, path.basename(filename) )             
+              this.app.tabs.newTab(fs.readFileSync(filename, 'utf8'), 0, path.basename(filename), filename )             
 
               this.updateMenu()
             }
@@ -210,18 +210,15 @@ class MainMenu {
   }
 
   createRecentSubMenu(updated) {
-    // give properties
-    
+    // give properties    
     const recentFiles = this.settings.get('recent')
-    console.log( this , recentFiles)
-    let files = [];
-   
+    let files = [];   
     recentFiles.forEach((filename) => {
       let mi = {}
       mi.label = filename
       mi.click = (menuItem) => {
         window.app = this.app        
-        this.app.tabs.newTab(fs.readFileSync(filename, 'utf8'), 0, path.basename(filename));
+        this.app.tabs.newTab(fs.readFileSync(filename, 'utf8'), 0, path.basename(filename), filename);
       }
       files.push(mi)
     })

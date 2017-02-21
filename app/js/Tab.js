@@ -26,8 +26,8 @@ class Tab {
    * @param {Element} container
    */
 
-  constructor(container, tabName) {
-     console.log(tabName)
+  constructor(container, tabName, filename) {
+
     this.tabName = tabName || "&nbsp;";
     this.container = container
     this.container.html(defaultTab)
@@ -67,10 +67,13 @@ class Tab {
    * @param {Integer} tabId
    */
 
-  static generateTabHeaderTemplate(tabId, tabName) {
+  static generateTabHeaderTemplate(tabId, tabName, filename) {    
+    let tabMarkup = (filename === undefined) ? 
+      `<a href="#tab-${tabId}">${ tabId + " [no name]"}</a>` :
+      `<a href="#tab-${tabId}" title="${filename}">${ tabName }</a>` 
     return `
       <li data-tab="${tabId}">
-        <a href="#tab-${tabId}">${tabName || "Untitled-" + tabId }</a>
+        ${ tabMarkup }
         <span class="ui-icon ui-icon-close" role="presentation">Remove Tab</span>
       </li>
     `
