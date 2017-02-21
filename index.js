@@ -2,13 +2,10 @@
 
 // Dependencies
 const enableContextMenu = require('electron-context-menu')
-const electron = require('electron')
 const mkdirp = require('mkdirp')
 const path = require('path')
 const fs = require('fs')
-
-const { BrowserWindow } = electron
-const { app } = electron
+const {app, globalShortcut , BrowserWindow} = require('electron')
 
 // Create window
 const WINDOW_HEIGHT = 600
@@ -62,6 +59,14 @@ function createWindow() {
     // in an array if your app supports multi windows, this is the time
     // when you should delete the corresponding element.
     mainWindow = null
+  })
+
+  // Register shortcut listeners
+  globalShortcut.register('CommandOrControl+Tab', () => {
+    mainWindow.webContents.send('tab-change', 1);
+  })
+  globalShortcut.register('CommandOrControl+Shift+Tab', () => {
+    mainWindow.webContents.send('tab-change', -1);
   })
 }
 

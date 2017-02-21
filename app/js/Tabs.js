@@ -133,6 +133,27 @@ class Tabs {
   hideTabBar() {
     this.container.addClass('tab-bar-hidden')
   }
+
+  /**
+   * Change active tab
+   */
+
+  changeTab(direction) {
+    let totalTabs = this.tabs.length    
+    if (totalTabs > 0) {
+      let currentIndex = this.container.tabs('option', 'active');
+      let position = currentIndex + direction;
+      // if we are at the end go to first tab
+      if (position >= totalTabs) {
+        position = 0;
+      }
+      //if we are at the first tab and user goes back jump to end
+      else if (position < 0) {
+        position = totalTabs - 1
+      }
+      this.container.tabs('option', 'active', position)
+    }
+  }
 }
 
 
