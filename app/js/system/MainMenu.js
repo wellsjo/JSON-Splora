@@ -46,8 +46,7 @@ class MainMenu {
             (filePaths) => {
               var filename = filePaths[0]           
               var r = this.settings.get('recent') || []
-              if (r.indexOf(filename.toLowerCase()) === -1)
-              {
+              if (r.indexOf(filename.toLowerCase()) === -1) {
                 r.push(filePaths[0].toLowerCase());
                 this.settings.set('recent', r)
               }
