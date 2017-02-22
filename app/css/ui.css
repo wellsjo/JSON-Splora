@@ -133,10 +133,6 @@ body {
   outline: none;
 }
 
-.ui-tabs-tab {
-  /* width: 50px; */
-}
-
 .ui-tabs-tab + li.ui-tabs-tab {
   margin-left: 0.5rem;
 }
