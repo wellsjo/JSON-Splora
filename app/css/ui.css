@@ -81,7 +81,7 @@
 .ui-widget-content .ui-tabs-tab {
   border-top-right-radius: 12px;
   border-top-left-radius: 12px;
-  padding-right: 0 !important;
+  padding-right: 8px !important;
 }
 
 .ui-widget-header {
@@ -133,10 +133,6 @@ body {
   outline: none;
 }
 
-.ui-tabs-tab {
-  width: 50px;
-}
-
 .ui-tabs-tab + li.ui-tabs-tab {
   margin-left: 0.5rem;
 }
@@ -144,8 +140,15 @@ body {
 .ui-tabs-tab .ui-icon-close {
   position: absolute;
   right: 3px;
-  top: 6px;
+  top: 13px;
   cursor: pointer;
+  visibility: hidden;
+}
+
+.ui-state-active .ui-icon,
+.ui-tabs-tab:hover .ui-icon-close
+{
+  visibility: visible;
 }
 
 .ui-state-active .ui-icon,

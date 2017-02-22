@@ -5,6 +5,7 @@
  */
 
 const Tabs = require('./Tabs')
+const { ipcRenderer: ipc } =  require('electron')
 
 /**
  * App container class
@@ -27,6 +28,9 @@ class App {
     const theme = settings.get('theme')
     const rootEl = this.document.querySelector('#tabs')
     this.tabs = new Tabs(rootEl, theme)
+    ipc.on('tab-change', (evt, direction) => {
+      this.tabs.changeTab(direction)
+    }) 
   }
 
   /**

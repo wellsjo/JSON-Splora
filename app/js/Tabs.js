@@ -83,10 +83,10 @@ class Tabs {
    * @param {Integer} currsorPos The line to start the cursor on
    */
 
-  newTab(input, cursorPos) {
-
+  newTab(input, cursorPos, tabName, filename) {
+ 
     // Generate HTML
-    const tabEl = $(Tab.generateTabHeaderTemplate(this.totalTabsCreated))
+    const tabEl = $(Tab.generateTabHeaderTemplate(this.totalTabsCreated, tabName, filename))
     const contentEl = $(Tab.generateTabContentTemplate(this.totalTabsCreated))
 
     // Setup listener to remove tab
@@ -98,7 +98,7 @@ class Tabs {
     this.container.append(contentEl)
 
     // Create the new tab
-    const newTab = new Tab(contentEl)
+    const newTab = new Tab(contentEl, tabName, filename)
     newTab.setTheme(this.theme)
     this.tabs.push(newTab)
 
@@ -132,6 +132,27 @@ class Tabs {
 
   hideTabBar() {
     this.container.addClass('tab-bar-hidden')
+  }
+
+  /**
+   * Change active tab
+   */
+
+  changeTab(direction) {
+    let totalTabs = this.tabs.length    
+    if (totalTabs > 0) {
+      let currentIndex = this.container.tabs('option', 'active');
+      let position = currentIndex + direction;
+      // if we are at the end go to first tab
+      if (position >= totalTabs) {
+        position = 0;
+      }
+      //if we are at the first tab and user goes back jump to end
+      else if (position < 0) {
+        position = totalTabs - 1
+      }
+      this.container.tabs('option', 'active', position)
+    }
   }
 }
 
